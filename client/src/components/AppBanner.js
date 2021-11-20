@@ -84,7 +84,8 @@ export default function AppBanner() {
         if(loggedIn) {
             let initials = auth.user.firstName.substring(0,1);
             initials = initials + auth.user.lastName.substring(0,1);
-            return <Box style={{ textDecoration: 'none', color: 'white' }}>{initials}</Box>;
+            return <Box sx={{ borderRadius: '50%', p: 1, border: '1px solid black' }}
+                style={{ background: '#D4AF3B', textDecoration: 'none', color: 'black' }}>{initials}</Box>;
         }
         return <AccountCircle />;
     }
@@ -93,13 +94,13 @@ export default function AppBanner() {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography                        
+                    <Typography                     
                         variant="h4"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <Link style={{ textDecoration: 'none', color: 'white' }} to='/'>T<sup>5</sup>L</Link>
+                        <Link style={{ textDecoration: 'none', color: '#D4AF3B' }} to='/'>T<sup>5</sup>L</Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

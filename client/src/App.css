@@ -54,19 +54,27 @@ body {
   border-radius: 10px;
 }
 #splash-screen {
-  background-image: linear-gradient(to bottom, #b8b808, #636723);
-  color: white;
-  font-size: 5vw;
+  background-image: linear-gradient(to bottom, #2C3271, white);
+  color: #D4AF3B;
+  font-size: 12vw;
   border-color: black;
   border-width: 2px;
   border-style: solid;
   border-radius: 10px;
-  padding-left: 10%;
   padding-top: 5%;
   padding-bottom: 5%;
   height:70%;
   text-align: center;
   vertical-align: center;
+}
+#splash-screen-description {
+  font-size: 4vw;
+  color: black;
+}
+#splash-screen-creator {
+  color: black;
+  font-size: 3vw;
+  padding-top: 10%
 }
 
 #edit-toolbar {
@@ -99,7 +107,7 @@ body {
   left: 0%;
   top: 10%;
   width: 100%;
-  height: 80%;
+  height: 90%;
   background-color: var(--swatch-primary);
 }
 
@@ -118,25 +126,26 @@ body {
   top: 90%;
   width: 100%;
   height: 10%;
-  background-color: lightsalmon;
+  background-color: var(--swatch-primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 36pt;
+  font-size: 24pt;
 }
 
 #list-selector-heading {
+  top: 0%;
   position: absolute;
   left: 0%;
-  top: 0%;
   width: 100%;
   height: 10%;
-  text-align: center;
   font-size: 24pt;
   font-weight: bold;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  align-items: left;
+  justify-content: left;
+  padding-left: 25px;
 }
 
 #add-list-button {
@@ -148,7 +157,7 @@ body {
   left: 0%;
   top: 10%;
   width: 100%;
-  height: 90%;
+  height: 80%;
   display: flex;
   flex-direction: column;
   overflow: scroll;

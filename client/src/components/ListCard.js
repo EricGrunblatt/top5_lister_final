@@ -6,6 +6,7 @@ import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AuthContext from '../auth';
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -15,6 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
     @author McKilla Gorilla
 */
 function ListCard(props) {
+    const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
@@ -66,6 +68,12 @@ function ListCard(props) {
     if(store.isListNameEditActive) {
         cardStatus = true;
     }
+    let user = "By: " + auth.user.email;
+    let published = false;
+    let publishedStatus = "edit";
+    if(published) {
+        publishedStatus = "Published: " + published;
+    }
 
     let cardElement =
         <ListItem
@@ -78,16 +86,25 @@ function ListCard(props) {
             }
             }
             style={{
-                fontSize: '48pt',
+                border: '1px solid',
+                borderColor: 'black',
+                borderRadius: '10px',
+                background: '#D4D5F5',
+                fontSize: '25pt',
+                fontWeight: 'bold',
                 width: '100%'
             }}
         >
-                <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
+                <Box sx={{ p: 1, flexGrow: 1 }}>
+                    {idNamePair.name}
+                    <Box style={{ fontWeight: 'normal', fontSize:'12pt' }}>{user}</Box>
+                    <Box style={{ fontWeight: 'normal', fontSize:'13pt' }}>{publishedStatus}</Box>
+                </Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton 
                         disabled={cardStatus}
                         onClick={handleToggleEdit} aria-label='edit'>
-                        <EditIcon style={{fontSize:'48pt'}} />
+                        <EditIcon style={{ fontSize:'48pt'}} />
                     </IconButton>
                 </Box>
                 <Box sx={{ p: 1 }}>
