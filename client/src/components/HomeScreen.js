@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
 import ListCard from './ListCard.js'
-import { Fab, Typography } from '@mui/material'
+import { Fab } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import GroupIcon from '@mui/icons-material/Group';
@@ -60,12 +60,6 @@ const HomeScreen = () => {
 
     return (
         <div id="top5-list-selector">
-            <div id="list-selector-list">
-                {
-                    listCard
-                }
-                <DeleteModal />
-            </div>
             <div id="list-selector-heading">
                 <Fab 
                     disabled={disableHome}
@@ -74,7 +68,7 @@ const HomeScreen = () => {
                     id="home-button"
                     onClick={handleHome}
                 >
-                    <HomeIcon font-size="large" />
+                    <HomeIcon />
                 </Fab>
                 <Fab 
                     disabled={disableAllUsers}
@@ -104,7 +98,12 @@ const HomeScreen = () => {
                     <GroupIcon />
                 </Fab>
             </div>
-            
+            <div id="list-selector-list">
+                {
+                    listCard
+                }
+                <DeleteModal />
+            </div>
         </div>)
 }
 

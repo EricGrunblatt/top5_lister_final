@@ -56,7 +56,7 @@ body {
 #splash-screen {
   background-image: linear-gradient(to bottom, #2C3271, white);
   color: #D4AF3B;
-  font-size: 12vw;
+  font-size: 9vw;
   border-color: black;
   border-width: 2px;
   border-style: solid;
@@ -70,16 +70,16 @@ body {
 #splash-screen-description {
   font-size: 4vw;
   color: black;
+  padding-top: 5%;
 }
 #splash-screen-creator {
   color: black;
   font-size: 3vw;
-  padding-top: 10%
+  padding-top: 10%;
 }
 
 #edit-toolbar {
-  background-color: transparent;
-  float: right;
+  background-color: #E0E0E0;
 }
 
 .top5-button,
@@ -114,9 +114,9 @@ body {
 #top5-workspace {
   position: absolute;
   left: 0%;
-  top: 10%;
+  top: 20%;
   width: 100%;
-  height: 80%;
+  height: 70%;
   background-color: var(--swatch-accent);
 }
 
@@ -160,7 +160,7 @@ body {
   height: 80%;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .list-card,
@@ -243,6 +243,7 @@ body {
   border-color: black;
   background-color: linen;
   color: black;
+  border-radius: 20px
 }
 
 input {

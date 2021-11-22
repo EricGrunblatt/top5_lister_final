@@ -26,6 +26,10 @@ export default function AppBanner() {
         setAnchorEl(null);
     };
 
+    const handleGuest = () => {
+
+    };
+
     const handleLogout = () => {
         handleMenuClose();
         auth.logoutUser();
@@ -50,6 +54,7 @@ export default function AppBanner() {
         >
             <MenuItem onClick={handleMenuClose}><Link to='/login/'>Login</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
+            <MenuItem onClick={handleGuest}>Continue as Guest</MenuItem>
         </Menu>
     );
     const loggedInMenu = 
@@ -85,16 +90,16 @@ export default function AppBanner() {
             let initials = auth.user.firstName.substring(0,1);
             initials = initials + auth.user.lastName.substring(0,1);
             return <Box sx={{ borderRadius: '50%', p: 1, border: '1px solid black' }}
-                style={{ background: '#D4AF3B', textDecoration: 'none', color: 'black' }}>{initials}</Box>;
+                style={{ background: '#D4AF3B', color: 'black' }}>{initials}</Box>;
         }
-        return <AccountCircle />;
+        return <AccountCircle sx={{ fontSize: 35}} />;
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        <Box>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography                     
+                    <Typography                 
                         variant="h4"
                         noWrap
                         component="div"
@@ -104,8 +109,7 @@ export default function AppBanner() {
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton
-                            size="large"
+                        <IconButton sx={{ color: 'black' }}
                             edge="end"
                             aria-label="account of current user"
                             aria-controls={menuId}

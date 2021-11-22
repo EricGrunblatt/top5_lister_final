@@ -228,8 +228,9 @@ function GlobalStoreContextProvider(props) {
             ownerUserName: auth.user.userName,
             likes: 0,
             dislikes: 0,
-            published: '',
-            comments: []
+            comments: [],
+            published: "",
+            views: 0
         };
         const response = await api.createTop5List(payload);
         if (response.data.success) {

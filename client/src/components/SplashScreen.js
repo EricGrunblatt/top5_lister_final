@@ -1,8 +1,8 @@
 export default function SplashScreen() {
     return (
         <div id="splash-screen">
-            The Top 5<br />
-            Lister
+            Welcome to The<br />
+            Top 5 Lister!
             <div id="splash-screen-description">
                 The site where you can share your own <br /> 
                 Top 5 Lists and view the lists made by <br />

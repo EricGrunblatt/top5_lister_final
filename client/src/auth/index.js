@@ -76,13 +76,12 @@ function AuthContextProvider(props) {
                 });
             }
         } catch (err) {
-            //console.log(err);
         }
     }
 
     auth.registerUser = async function(userData, store) {
         try {
-            const response = await api.registerUser(userData);      
+            const response = await api.registerUser(userData);  
             if (response.status === 200) {
                 authReducer({
                     type: AuthActionType.REGISTER_USER,
