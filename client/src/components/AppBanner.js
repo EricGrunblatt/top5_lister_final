@@ -2,7 +2,6 @@ import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom'
 import AuthContext from '../auth';
 import { GlobalStoreContext } from '../store'
-import EditToolbar from './EditToolbar'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import HomeToolbar from './HomeToolbar'
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -76,13 +76,9 @@ export default function AppBanner() {
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
         </Menu>        
 
-    let editToolbar = "";
     let menu = loggedOutMenu;
     if (auth.loggedIn) {
         menu = loggedInMenu;
-        if (store.currentList) {
-            editToolbar = <EditToolbar />;
-        }
     }
     
     function getAccountMenu(loggedIn) {
@@ -107,7 +103,7 @@ export default function AppBanner() {
                     >
                         <Link style={{ textDecoration: 'none', color: '#D4AF3B' }} to='/'>T<sup>5</sup>L</Link>
                     </Typography>
-                    <Box sx={{ flexGrow: 1 }}>{editToolbar}</Box>
+                    <Box sx={{ flexGrow: 1 }}></Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton sx={{ color: 'black' }}
                             edge="end"

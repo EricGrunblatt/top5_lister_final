@@ -1,7 +1,6 @@
 import AppBanner from './AppBanner'
 import AccountErrorModal from './AccountErrorModal'
 import DeleteModal from './DeleteModal'
-import EditToolbar from './EditToolbar'
 import HomeScreen from './HomeScreen'
 import HomeWrapper from './HomeWrapper'
 import ListCard from './ListCard'
@@ -9,6 +8,7 @@ import RegisterScreen from './RegisterScreen'
 import SignIn from './SignIn'
 import SplashScreen from './SplashScreen'
 import Statusbar from './Statusbar'
+import HomeToolbar from './HomeToolbar'
 import Top5Item from './Top5Item'
 import WorkspaceScreen from './WorkspaceScreen'
 /*
@@ -20,8 +20,7 @@ import WorkspaceScreen from './WorkspaceScreen'
 export { 
     AppBanner, 
     AccountErrorModal,
-    DeleteModal,
-    EditToolbar, 
+    DeleteModal, 
     HomeScreen,
     HomeWrapper,
     ListCard, 
@@ -29,5 +28,6 @@ export {
     SignIn,
     SplashScreen,
     Statusbar, 
+    HomeToolbar,
     Top5Item, 
     WorkspaceScreen }

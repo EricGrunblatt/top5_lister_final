@@ -14,43 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 function Top5Item(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
-    const [draggedTo, setDraggedTo] = useState(0);
-
-    function handleDragStart(event, targetId) {
-        event.dataTransfer.setData("item", targetId);
-    }
-
-    function handleDragOver(event) {
-        event.preventDefault();
-        setDraggedTo(true);
-    }
-
-    function handleDragEnter(event) {
-        event.preventDefault();
-        console.log("entering");
-    }
-
-    function handleDragLeave(event) {
-        event.preventDefault();
-        console.log("leaving");
-        setDraggedTo(false);
-    }
-
-    function handleDrop(event, targetId) {
-        event.preventDefault();
-        let sourceId = event.dataTransfer.getData("item");
-        sourceId = sourceId.substring(sourceId.indexOf("-") + 1);
-        setDraggedTo(false);
-
-        console.log("handleDrop (sourceId, targetId): ( " + sourceId + ", " + targetId + ")");
-
-        // UPDATE THE LIST
-        if(sourceId != targetId) {
-            store.addMoveItemTransaction(sourceId, targetId);
-        }
-  
-    }
-
+    
     function handleItemFocus(event) {
         event.target.select();
     }
@@ -73,10 +37,10 @@ function Top5Item(props) {
     function handleKeyPress(event) {
         if(event.code === "Enter") {
             if(event.target.value === "" || event.target.value === " ") {
-                store.addUpdateItemTransaction(index, "?");
+                store.updateItem(index, "?");
             }
             else if(props.text !== event.target.value) {
-                store.addUpdateItemTransaction(index, event.target.value);
+                store.updateItem(index, event.target.value);
             }
             store.setIsItemEditInactive();
             toggleItemEdit();
@@ -85,9 +49,6 @@ function Top5Item(props) {
 
     let { index } = props;
     let itemClass = "top5-item";
-    if (draggedTo) {
-        itemClass = "top5-item-dragged-to";
-    }
 
 
     if(editActive) {
@@ -115,22 +76,6 @@ function Top5Item(props) {
                 id={'item-' + (index+1)}
                 key={props.index}
                 className={itemClass}
-                onDragStart={(event) => {
-                    handleDragStart(event, (index+1))
-                }}
-                onDragOver={(event) => {
-                    handleDragOver(event, (index+1))
-                }}
-                onDragEnter={(event) => {
-                    handleDragEnter(event, (index+1))
-                }}
-                onDragLeave={(event) => {
-                    handleDragLeave(event, (index+1))
-                }}
-                onDrop={(event) => {
-                    handleDrop(event, (index+1))
-                }}
-                draggable="true"
                 sx={{ display: 'flex', p: 1 }}
                 style={{
                     fontSize: '48pt',

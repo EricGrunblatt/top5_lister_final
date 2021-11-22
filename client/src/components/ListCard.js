@@ -68,11 +68,13 @@ function ListCard(props) {
     if(store.isListNameEditActive) {
         cardStatus = true;
     }
-    let user = "By: " + auth.user.email;
+    let user = "By: " + auth.user.userName;
     let published = false;
     let publishedStatus = "edit";
+    let publishedColor = '#FFFFF1';
     if(published) {
         publishedStatus = "Published: " + published;
+        publishedColor = '#D4D5F5';
     }
 
     let cardElement =
@@ -89,7 +91,7 @@ function ListCard(props) {
                 border: '1px solid',
                 borderColor: 'black',
                 borderRadius: '10px',
-                background: '#D4D5F5',
+                background: publishedColor,
                 fontSize: '25pt',
                 fontWeight: 'bold',
                 width: '100%'
@@ -98,7 +100,7 @@ function ListCard(props) {
                 <Box sx={{ p: 1, flexGrow: 1 }}>
                     {idNamePair.name}
                     <Box style={{ fontWeight: 'normal', fontSize:'12pt' }}>{user}</Box>
-                    <Box style={{ fontWeight: 'normal', fontSize:'13pt' }}>{publishedStatus}</Box>
+                    <Box style={{ color: 'red', fontWeight: 'normal', fontSize:'13pt' }}>{publishedStatus}</Box>
                 </Box>
                 <Box sx={{ p: 1 }}>
                     <IconButton 
@@ -117,6 +119,10 @@ function ListCard(props) {
                     </IconButton>
                 </Box>
         </ListItem>
+
+
+
+
 
     if (editActive) {
         cardElement =

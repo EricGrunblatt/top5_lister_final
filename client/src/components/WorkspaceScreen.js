@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import Top5Item from './Top5Item.js'
+import HomeToolbar from './HomeToolbar.js'
 import List from '@mui/material/List';
 import { Typography } from '@mui/material'
 import { GlobalStoreContext } from '../store/index.js'
@@ -28,17 +29,21 @@ function WorkspaceScreen() {
             </List>;
     }
     return (
-        <div id="top5-workspace">
-            
-            <div id="workspace-edit">
-                <div id="edit-numbering">
-                    <div className="item-number"><Typography variant="h3">1.</Typography></div>
-                    <div className="item-number"><Typography variant="h3">2.</Typography></div>
-                    <div className="item-number"><Typography variant="h3">3.</Typography></div>
-                    <div className="item-number"><Typography variant="h3">4.</Typography></div>
-                    <div className="item-number"><Typography variant="h3">5.</Typography></div>
+        <div>
+            <div id="top5-workspace">
+                <div id="workspace-edit">
+                    <div id="edit-numbering">
+                        <div className="item-number"><Typography variant="h3">1.</Typography></div>
+                        <div className="item-number"><Typography variant="h3">2.</Typography></div>
+                        <div className="item-number"><Typography variant="h3">3.</Typography></div>
+                        <div className="item-number"><Typography variant="h3">4.</Typography></div>
+                        <div className="item-number"><Typography variant="h3">5.</Typography></div>
                 </div>
-                {editItems}
+                    {editItems}
+                </div>
+            </div>
+            <div id="toolbar-workspace">
+                <HomeToolbar />
             </div>
         </div>
     )
