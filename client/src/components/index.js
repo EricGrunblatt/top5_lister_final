@@ -9,7 +9,6 @@ import SignIn from './SignIn'
 import SplashScreen from './SplashScreen'
 import Statusbar from './Statusbar'
 import HomeToolbar from './HomeToolbar'
-import Top5Item from './Top5Item'
 import WorkspaceScreen from './WorkspaceScreen'
 /*
     This serves as a module so that we can import
@@ -29,5 +28,4 @@ export {
     SplashScreen,
     Statusbar, 
     HomeToolbar,
-    Top5Item, 
     WorkspaceScreen }

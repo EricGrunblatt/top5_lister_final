@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react'
-import Top5Item from './Top5Item.js'
 import HomeToolbar from './HomeToolbar.js'
 import List from '@mui/material/List';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
+import ListItem from '@mui/material/ListItem';
 import { GlobalStoreContext } from '../store/index.js'
 import { useHistory } from 'react-router-dom'
 /*
@@ -30,23 +30,43 @@ function WorkspaceScreen() {
     }
 
     let disablePublish = false;
-    const repeatMap = new Set();
-    for (let i = 0; i < items.length; i++) {
-        if(!repeatMap.has(items[i])) {
-            repeatMap.add(items[i]);
-        }
-        else {
-            disablePublish = true;
-        }
+    let listArray = store.idNamePairs;
+    const repeatItem = items.some(
+        (item, index) => items.indexOf(item) !== index)
+    const repeatList = listArray.some(
+        (list, index) => listArray.indexOf(list) !== index)
+    if (repeatItem || repeatList) {
+        disablePublish = true;
     }
 
     function handleListChange(event) {
         currentListName = event.target.value;
     }
 
-    function handleItemChange(event) {
-        console.log(event.target.id);
-        items[event.target.id] = event.target.value;
+    function handleItemChange(event, index) {
+        items[index] = event.target.value;
+        console.log(event.target.value);
+        const repeatItem = items.some(
+            (item, index) => items.indexOf(item) !== index)
+        if (repeatItem) {
+            disablePublish = true;
+        }
+    }
+
+    function handleBlur(event, index) {
+        items[index] = event.target.value;
+        const repeatItem = items.some(
+            (item, index) => items.indexOf(item) !== index)
+        if (repeatItem) {
+            disablePublish = true;
+        }
+    }
+
+    function handleListBlur(event) {
+        let listArray = store.idNamePairs;
+        if(listArray.includes(event.target.value)) {
+            disablePublish = true;
+        }
     }
 
     function handleFocus(event) {
@@ -69,15 +89,34 @@ function WorkspaceScreen() {
     let editItems = "";
     if (store.currentList) {
         editItems = (
-            <div id="edit-items" sx={{ width: '100%', bgcolor: '#C4A036' }}>
+            <div id="edit-items" sx={{ width: '100%' }}>
                 {
                     store.currentList.items.map((item, index) => (
-                        <Top5Item 
-                            key={'top5-item-' + (index+1)}
-                            text={item}
-                            index={index} 
-                            defaultValue={item}
-                        ></Top5Item>
+                        <ListItem
+                            id={'item-' + (index+1)}
+                            key={"top5-item-" + (index+1)}
+                            className="top5-item"
+                            sx={{ display: 'flex', p: 1 }}
+                            style={{
+                                width: '95%',
+                                borderRadius: '20px'
+                            }}
+                        >
+                            <TextField
+                                sx={{ bgcolor: '#C4A036', width: '100%' }}
+                                style={{ borderRadius: '10px' }}
+                                defaultValue={item}
+                                onFocus={handleFocus}
+                                onChange={(event) => {
+                                    handleItemChange(event, index)
+                                }}
+                                onBlur={(event) => {
+                                    handleBlur(event, index)
+                                }}
+                                autofocus
+                            >
+                            </TextField>
+                        </ListItem>
                     ))
                 }
             </div>)
@@ -95,6 +134,9 @@ function WorkspaceScreen() {
                         defaultValue={currentListName}
                         onFocus={handleFocus}
                         onChange={handleListChange}
+                        onBlur={(event) => {
+                            handleListBlur(event)
+                        }}
                         autofocus>
                     </TextField>
                 </div>

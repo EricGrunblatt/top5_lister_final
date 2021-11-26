@@ -103,9 +103,20 @@ const HomeToolbar = () => {
     let disableAllUsers = false;
     let disableUser = false;
     let disableCommunity = false;
+    let disableTextField = false;
+    let disableSortBy = false;
 
     if(!auth.loggedIn) {
         disableHome = true;
+    }
+
+    if(store.currentList) {
+        disableHome = true;
+        disableAllUsers = true;
+        disableUser = true;
+        disableCommunity = true;
+        disableTextField = true;
+        disableSortBy = true;
     }
 
     return (
@@ -148,6 +159,7 @@ const HomeToolbar = () => {
                     <FunctionsIcon sx={{ fontSize: 40 }}/>
                 </IconButton>
                 <TextField
+                    disabled={disableTextField}
                     sx={{ bgcolor: 'white', width: 1000 }}
                     id="search-bar"
                     name="name"
@@ -156,7 +168,8 @@ const HomeToolbar = () => {
                     inputProps={{style: {fontSize: 24}}}>
                 </TextField>
                 <Box sx={{ flexGrow: 1 }}></Box>
-                <IconButton sx={{ color: 'black', fontSize: '25px', fontWeight: 'bold' }}>
+                <IconButton sx={{ color: 'black', fontSize: '25px', fontWeight: 'bold' }}
+                    disabled={disableSortBy}>
                     Sort By
                     <SortIcon sx={{ fontSize: 40}}
                         edge="end"
