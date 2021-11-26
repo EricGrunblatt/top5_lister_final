@@ -24,7 +24,11 @@ export const GlobalStoreActionType = {
     SET_CURRENT_LIST: "SET_CURRENT_LIST",
     SET_ITEM_EDIT_ACTIVE: "SET_ITEM_EDIT_ACTIVE",
     SET_ITEM_EDIT_INACTIVE: "SET_ITEM_EDIT_INACTIVE",
-    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE"
+    SET_LIST_NAME_EDIT_ACTIVE: "SET_LIST_NAME_EDIT_ACTIVE",
+    HOME_BUTTON_ACTIVE: "HOME_BUTTON_ACTIVE",
+    ALL_USERS_BUTTON_ACTIVE: "ALL_USERS_BUTTON_ACTIVE",
+    ONE_USER_BUTTON_ACTIVE: "ONE_USER_BUTTON_ACTIVE",
+    COMMUNITY_BUTTON_ACTIVE: "COMMUNITY_BUTTON_ACTIVE"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -34,11 +38,19 @@ function GlobalStoreContextProvider(props) {
     const [store, setStore] = useState({
         idNamePairs: [],
         currentList: null,
-        newListCounter: 0,
+        newListCounter: localStorage.getItem("newListCounter"),
         lisListNameActive: false,
         itemActive: false,
-        listMarkedForDeletion: null
+        listMarkedForDeletion: null,
+        homeButtonActive: false,
+        allUsersButtonActive: false,
+        oneUserButtonActive: false,
+        communityButtonActive: false
     });
+    if(store.newListCounter === null || store.newListCounter === undefined) {
+        store.newListCounter = 0;
+    }
+    localStorage.setItem("newListCounter", store.newListCounter);
     const history = useHistory();
 
     // SINCE WE'VE WRAPPED THE STORE IN THE AUTH CONTEXT WE CAN ACCESS THE USER HERE
@@ -170,6 +182,46 @@ function GlobalStoreContextProvider(props) {
                     listMarkedForDeletion: null
                 });
             }
+            // HOME BUTTON ACTIVE
+            case GlobalStoreActionType.HOME_BUTTON_ACTIVE: {
+                return setStore({
+                    idNamePairs: store.idNamePairs,
+                    homeButtonActive: true,
+                    allUsersButtonActive: false,
+                    oneUserButtonActive: false,
+                    communityButtonActive: false
+                });
+            }
+            // ALL USERS BUTTON ACTIVE
+            case GlobalStoreActionType.ALL_USERS_BUTTON_ACTIVE: {
+                return setStore({
+                    idNamePairs: store.idNamePairs,
+                    homeButtonActive: false,
+                    allUsersButtonActive: true,
+                    oneUserButtonActive: false,
+                    communityButtonActive: false
+                });
+            }
+            // ONE USER BUTTON ACTIVE
+            case GlobalStoreActionType.ONE_USER_BUTTON_ACTIVE: {
+                return setStore({
+                    idNamePairs: store.idNamePairs,
+                    homeButtonActive: false,
+                    allUsersButtonActive: false,
+                    oneUserButtonActive: true,
+                    communityButtonActive: false
+                });
+            }
+            // COMMUNITY BUTTON ACTIVE
+            case GlobalStoreActionType.COMMUNITY_BUTTON_ACTIVE: {
+                return setStore({
+                    idNamePairs: store.idNamePairs,
+                    homeButtonActive: false,
+                    allUsersButtonActive: false,
+                    oneUserButtonActive: false,
+                    communityButtonActive: true
+                });
+            }
             default:
                 return store;
         }
@@ -199,6 +251,7 @@ function GlobalStoreContextProvider(props) {
                                     top5List: top5List
                                 }
                             });
+                            store.currentList = top5List;
                         }
                     }
                     getListPairs(top5List);
@@ -225,13 +278,15 @@ function GlobalStoreContextProvider(props) {
             name: newListName,
             items: ["?", "?", "?", "?", "?"],
             ownerEmail: auth.user.email,
-            ownerUserName: auth.user.userName,
+            userName: auth.user.userName,
             likes: 0,
             dislikes: 0,
             comments: [],
             published: "",
             views: 0
         };
+        store.newListCounter = store.newListCounter + 1;
+        localStorage.setItem("newListCounter", store.newListCounter);
         const response = await api.createTop5List(payload);
         if (response.data.success) {
             let newList = response.data.top5List;
@@ -334,6 +389,13 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    store.updateList = async function (idNamePair) {
+        const response = await api.updateTop5ListById(idNamePair._id, idNamePair);
+        if(response.data.success) {
+            console.log("List updated");
+        }
+    }
+
     // THIS FUNCTION ENABLES THE PROCESS OF EDITING A LIST NAME
     store.setIsListNameEditActive = function () {
         storeReducer({
@@ -362,6 +424,38 @@ function GlobalStoreContextProvider(props) {
     store.setIsItemEditInactive = function () {
         storeReducer({
             type: GlobalStoreActionType.SET_ITEM_EDIT_INACTIVE,
+            payload: null
+        });
+    }
+
+    // THIS FUNCTION ENABLES HOME BUTTON 
+    store.setHomeButtonActive = function () {
+        storeReducer({
+            type: GlobalStoreActionType.HOME_BUTTON_ACTIVE,
+            payload: null
+        });
+    }
+
+    // THIS FUNCTION ENABLES ALL USERS BUTTON 
+    store.setAllUsersButtonActive = function () {
+        storeReducer({
+            type: GlobalStoreActionType.ALL_USERS_BUTTON_ACTIVE,
+            payload: null
+        });
+    }
+
+    // THIS FUNCTION ENABLES ONE USER BUTTON 
+    store.setOneUserButtonActive = function () {
+        storeReducer({
+            type: GlobalStoreActionType.ONE_USER_BUTTON_ACTIVE,
+            payload: null
+        });
+    }
+
+    // THIS FUNCTION ENABLES COMMUNITY BUTTON 
+    store.setCommunityButtonActive = function () {
+        storeReducer({
+            type: GlobalStoreActionType.COMMUNITY_BUTTON_ACTIVE,
             payload: null
         });
     }

@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
+import { borderRadius } from "@mui/system";
 /*
     This React component represents a single item in our
     Top 5 List, which can be edited or moved around.
@@ -15,36 +16,8 @@ function Top5Item(props) {
     const { store } = useContext(GlobalStoreContext);
     const [editActive, setEditActive] = useState(false);
     
-    function handleItemFocus(event) {
+    function handleFocus(event) {
         event.target.select();
-    }
-
-    function handleToggleItemEdit(event) {
-        if(!editActive) {
-            event.stopPropagation();
-            toggleItemEdit();
-        }
-    }
-
-    function toggleItemEdit() {
-        let newActive = !editActive;
-        if(newActive) {
-            store.setIsItemEditActive();
-        }
-        setEditActive(newActive);
-    }
-
-    function handleKeyPress(event) {
-        if(event.code === "Enter") {
-            if(event.target.value === "" || event.target.value === " ") {
-                store.updateItem(index, "?");
-            }
-            else if(props.text !== event.target.value) {
-                store.updateItem(index, event.target.value);
-            }
-            store.setIsItemEditInactive();
-            toggleItemEdit();
-        }
     }
 
     let { index } = props;
@@ -62,8 +35,6 @@ function Top5Item(props) {
                 name="name"
                 autoComplete={"Item " + (index+1) + " Name"}
                 className={itemClass}
-                onFocus={handleItemFocus}
-                onKeyPress={handleKeyPress}
                 defaultValue={props.text}
                 inputProps={{style: {fontSize: 48}}}
                 InputLabelProps={{style: {fontSize: 24}}}
@@ -79,19 +50,18 @@ function Top5Item(props) {
                 sx={{ display: 'flex', p: 1 }}
                 style={{
                     fontSize: '48pt',
-                    width: '100%'
+                    width: '95%',
+                    borderRadius: '20px'
+                    
                 }}
             >
-            <Box sx={{ p: 1 }}>
-                <IconButton aria-label='edit' 
-                    onClick={(event) => {
-                        handleToggleItemEdit(event)
-                    }}
-                >
-                    <EditIcon style={{fontSize:'48pt'}}  />
-                </IconButton>
-            </Box>
-                <Box sx={{ p: 1 }}>{props.text}</Box>
+                <TextField
+                    sx={{ width: '100%' }}
+                    defaultValue={props.text}
+                    onFocus={handleFocus}
+                    autofocus
+                    >
+                </TextField>
             </ListItem>
     )
 }

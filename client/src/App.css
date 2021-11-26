@@ -113,19 +113,18 @@ body {
   top: 20%;
   width: 90%;
   height: 70%;
-  background-color: transparent;
+  background-color: #D4D5F5;
+  border-radius: 10px
 }
 
-#toolbar-workspace {
+#workspace-edit {
   position: absolute;
-  left: 0%;
+  left: 2%;
   top: 10%;
-  height: 10%;
-  width: 100%;
-  background-color: var(--swatch-primary);
-  align-items: center;
-  justify-content: center;
-  display: flex;
+  width: 96%;
+  height: 75%;
+  background-color: #2C3271;
+  border-radius: 10px;
 }
 
  
@@ -145,16 +144,14 @@ body {
 #list-selector-heading {
   top: 0%;
   position: absolute;
-  left: 0%;
-  width: 100%;
+  left: 5%;
+  width: 90%;
   height: 10%;
-  font-size: 24pt;
   font-weight: bold;
   display: flex;
   text-align: center;
-  align-items: left;
-  justify-content: left;
-  padding-left: 25px;
+  align-items: center;
+  justify-content: center;
 }
 
 #add-list-button {
@@ -209,22 +206,14 @@ body {
   transform: scale(2);
 }
 
-#workspace-home,
-#workspace-edit {
-  position: absolute;
-  left: 0%;
-  top: 0%;
-  width: 100%;
-  height: 100%;
-}
-
 #edit-numbering {
   position: absolute;
   left: 0%;
   top: 0%;
   width: 20%;
   height: 100%;
-  background-color: var(--swatch-status);
+  background-color: #2C3271;
+  border-radius: 10px;
 }
 
 #edit-items {
@@ -233,43 +222,55 @@ body {
   top: 0%;
   width: 80%;
   height: 100%;
-  background-color: var(--swatch-primary);
+  background-color: #2C3271;
+  border-radius: 10px;
+}
+
+#workspace-buttons {
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  top: 87%;
+  right: 0%;
+  padding-right: 5%;
+}
+
+#list-name-textbox {
+  position: absolute;
+  align-items: left;
+  justify-content: left;
+  height: 3%;
+  top: 2%;
+  left: 2%;
 }
 
 .item-number,
-.top5-item,
-.top5-item-dragged-to {
-  display: flex;
+.top5-item {
   align-items: center;
-  font-size: 48pt;
-  height: 20%;
+  justify-content: center;
+  font-size: 36pt;
+  height: 12%;
+  background-color: #C4A036;
 }
 
 .item-number {
-  justify-content: center;
-  width: 100%;
-  border: 1px 0px 1px 1px;
+  display: flex;
+  width: 40%;
+  margin-top: 21px;
+  margin-left: 30px;
   border-color: black;
-  background-color: linen;
-  color: black;
-  border-radius: 20px
+  border-width: 1px;
+  border-radius: 10px;
+}
+
+.top5-item {
+  margin-top: 21px;
+  text-align: left;
 }
 
 input {
   font-size: 20pt;
-}
-
-.top5-item,
-.top5-item-dragged-to {
-  text-align: left;
-  width: 95%;
-  padding-left: 5%;
-}
-.top5-item {
-  background-color: var(--swatch-complement);
-}
-.top5-item-dragged-to {
-  background-color: var(--swatch-accent);
 }
 
 .disabled {
