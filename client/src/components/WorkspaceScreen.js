@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import HomeToolbar from './HomeToolbar.js'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
@@ -17,62 +17,84 @@ function WorkspaceScreen() {
     const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
+    const [disablePublish, setDisPublish] = useState(false);
 
-    let currentListName = store.currentList.name;
-    let items = store.currentList.items;
+    let listArray = store.idNamePairs.filter(list => (list.ownerEmail === auth.user.email)).map(list => list.name);
+    useEffect(() => {
+        const repeatItem = store.currentList.items.some(
+            (item, index) => store.currentList.items.indexOf(item) !== index)
+        let listDuplicates = 0;
+        for(let i = 0; i < listArray.length; i++) {
+            if(listArray[i] === store.currentList.name) {
+                listDuplicates++;
+            }
+        }
+        let alphanumeric = true;
+        for(let i = 0; i < store.currentList.items.length; i++) {
+            if(!store.currentList.items[i].match(/^[a-zA-Z0-9 _-]+$/)) {
+                alphanumeric = false;
+            }
+        }
+        if(!store.currentList.name.match(/^[a-zA-Z0-9 _-]+$/)) {
+            alphanumeric = false;
+        }
+        if (repeatItem || listDuplicates >= 2 || !alphanumeric) {
+            setDisPublish(true);
+        }
+        else {
+            setDisPublish(false);
+        }
+    }, []);
 
-    function handleSave() {
-        store.currentList.name = currentListName;
-        store.currentList.items = items;
-        store.updateCurrentList();
-        console.log(items.length);
-        history.push("/");
-    }
-
-    let disablePublish = false;
-    let listArray = store.idNamePairs.filter(list => (list.ownerEmail === auth.user.email));
-    console.log(listArray);
-    const repeatItem = items.some(
-        (item, index) => items.indexOf(item) !== index)
-    const repeatList = listArray.some(
-        (list, index) => listArray.indexOf(list) !== index)
-    if (repeatItem || repeatList) {
-        disablePublish = true;
-    }
+    // Disable publish if list name/items are repeated or if anything is not alphanumeric
+    
 
     function handleListChange(event) {
-        currentListName = event.target.value;
+        store.currentList.name = event.target.value;
+        listArray = store.idNamePairs.filter(list => (list.ownerEmail === auth.user.email)).map(list => list.name);
+        let listDuplicates = 0;
+        for(let i = 0; i < listArray.length; i++) {
+            if(listArray[i] === store.currentList.name) {
+                listDuplicates++;
+            }
+        }
+        let alphanumeric = true; 
+        if(!store.currentList.name.match(/^[a-zA-Z0-9 _-]+$/)) {
+            alphanumeric = false;
+        }
+        if (listDuplicates >= 2 || !alphanumeric) {
+            setDisPublish(true);
+        }
+        else {
+            setDisPublish(false);
+        }
     }
 
     function handleItemChange(event, index) {
-        items[index] = event.target.value;
-        console.log(event.target.value);
-        const repeatItem = items.some(
-            (item, index) => items.indexOf(item) !== index)
-        if (repeatItem) {
-            disablePublish = true;
+        store.currentList.items[index] = event.target.value;
+        const repeatItem = store.currentList.items.some(
+            (item, index) => store.currentList.items.indexOf(item) !== index)
+        let alphanumeric = true;
+        for(let i = 0; i < store.currentList.items.length; i++) {
+            if(!store.currentList.items[i].match(/^[a-zA-Z0-9 _-]+$/)) {
+                alphanumeric = false;
+            }
         }
-    }
-
-    function handleBlur(event, index) {
-        items[index] = event.target.value;
-        const repeatItem = items.some(
-            (item, index) => items.indexOf(item) !== index)
-        if (repeatItem) {
-            disablePublish = true;
+        if (repeatItem || !alphanumeric) {
+            setDisPublish(true);
         }
-    }
-
-    function handleListBlur(event) {
-        const repeatList = listArray.some(
-            (list, index) => listArray.indexOf(list) !== index)
-        if (repeatList) {
-            disablePublish = true;
+        else {
+            setDisPublish(false);
         }
     }
 
     function handleFocus(event) {
         event.target.select();
+    }
+
+    function handleSave() {
+        store.updateCurrentList();
+        history.push("/");
     }
 
     function handlePublish() {
@@ -112,10 +134,6 @@ function WorkspaceScreen() {
                                 onChange={(event) => {
                                     handleItemChange(event, index)
                                 }}
-                                onBlur={(event) => {
-                                    handleBlur(event, index)
-                                }}
-                                autofocus
                             >
                             </TextField>
                         </ListItem>
@@ -133,13 +151,11 @@ function WorkspaceScreen() {
                     <TextField 
                         sx={{ width: 400, bgcolor:'white' }}
                         size="small"
-                        defaultValue={currentListName}
+                        defaultValue={store.currentList.name}
                         onFocus={handleFocus}
-                        onChange={handleListChange}
-                        onBlur={(event) => {
-                            handleListBlur(event)
-                        }}
-                        autoFocus>
+                        onChange={(event) => {
+                            handleListChange(event)
+                        }}>
                     </TextField>
                 </div>
                 <div id="workspace-edit">

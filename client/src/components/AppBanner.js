@@ -94,7 +94,7 @@ export default function AppBanner() {
     return (
         <Box>
             <AppBar position="static">
-                <Toolbar>
+                <Toolbar style={{ backgroundColor: '#E0E0E0' }}>
                     <Typography                 
                         variant="h4"
                         noWrap

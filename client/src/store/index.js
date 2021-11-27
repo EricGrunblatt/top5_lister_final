@@ -245,9 +245,12 @@ function GlobalStoreContextProvider(props) {
                     idNamePairs: store.idNamePairs,
                     currentList: store.currentList,
                     newListCounter: store.newListCounter,
-                    isListNameEditActive: false,
-                    isItemEditActive: false,
                     listMarkedForDeletion: null,
+                    homeButtonActive: store.homeButtonActive,
+                    allUsersButtonActive: store.allUsersButtonActive,
+                    oneUserButtonActive: store.oneUserButtonActive,
+                    communityButtonActive: store.communityButtonActive,
+                    searchBar: payload,
                     accountGuest: true
                 });
             }

@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
 import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box';
@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useHistory } from 'react-router-dom'
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -19,6 +20,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { idNamePair } = props;
+    const history = useHistory();
+    const [open, setOpen] = useState(false);
 
     function handleLoadList(id) {
         if (!cardStatus) {
@@ -27,7 +30,7 @@ function ListCard(props) {
         }
     }
 
-    function handleLike(idNamePair) {
+    function handleLike() {
         if(thumbUpColor === "black") {
             thumbUpColor = "white";
         }
@@ -36,6 +39,7 @@ function ListCard(props) {
         }
         idNamePair.likes = idNamePair.likes + 1;
         store.updateList(idNamePair);
+        history.push("/");
     }
 
     function handleDislike() {
@@ -47,6 +51,7 @@ function ListCard(props) {
         }
         idNamePair.dislikes = idNamePair.dislikes + 1;
         store.updateList(idNamePair);
+        history.push("/");
     }
 
     async function handleDeleteList(event, id) {
@@ -57,7 +62,7 @@ function ListCard(props) {
     let openList = "";
     let arrowTransform = 'rotate(0deg)';
     let arrowTranslate = 3;
-    function handleOpenList(idNamePair) {
+    function handleOpenList() {
         /*arrowTransform = 'rotate(180deg)';
         arrowTranslate = -3;
         openList = (
@@ -68,6 +73,7 @@ function ListCard(props) {
         if(idNamePair.published !== '') {
             idNamePair.views = idNamePair.views + 1;
             store.updateList(idNamePair);
+            history.push("/");
         }
     }
 
@@ -80,20 +86,18 @@ function ListCard(props) {
         handleLoadList(idNamePair._id)
     }}><Link style={{ color:'red' }}to="/">edit</Link></div>;
 
-    let thumbsUp, thumbsDown, views, likes, dislikes;
+    let thumbsUp, thumbsDown;
     let userName = idNamePair.userName;
+    let publishDate = "";
     let publishedColor = '#FFFFF1';
     let dateEditColor = "red";
     let thumbUpColor = "black";
     let thumbDownColor = "black";
 
     if(idNamePair.published !== '') {
-        publishedStatus = "Published: " + idNamePair.published;
+        publishedStatus = "Published: ";
         publishedColor = '#D4D5F5';
         dateEditColor = "black";
-        views = idNamePair.views;
-        likes = idNamePair.likes;
-        dislikes = idNamePair.dislikes;
         thumbsUp = (
             <Box sx={{ p: 1 }}>
                 <IconButton 
@@ -101,10 +105,10 @@ function ListCard(props) {
                     onClick={handleLike} aria-label='like'>
                     <ThumbUpIcon style={{ color: thumbUpColor, fontSize:'30pt' }} />
                 </IconButton>
-                {likes}
+                {idNamePair.likes}
                 <Box sx={{ p: 1 }}></Box>
                 <Box sx={{ fontSize: '15px'}}>
-                    Views: {views}
+                    Views: {idNamePair.views}
                 </Box>
             </Box>
         )
@@ -115,8 +119,13 @@ function ListCard(props) {
                     onClick={handleDislike} aria-label='dislike'>
                     <ThumbDownIcon style={{ color: thumbDownColor, fontSize:'30pt'}} />
                 </IconButton>
-                {dislikes}
+                {idNamePair.dislikes}
                 <Box sx={{ p: 2 }}></Box>
+            </Box>
+        )
+        publishDate = (      
+            <Box style={{ display: 'flex', color: 'green', fontWeight: 'bold', fontSize:'13pt' }}>
+                {idNamePair.published}
             </Box>
         )
     }
@@ -148,9 +157,11 @@ function ListCard(props) {
                         </Box> 
                     </Box>
                     {openList}
-                    <Box style={{ color: dateEditColor, fontWeight: 'bold', fontSize:'13pt' }}
+                    <Box style={{ display: 'flex', color: dateEditColor, fontWeight: 'bold', fontSize:'13pt' }}
                         sx={{ marginTop: 1 }}>
                         {publishedStatus}
+                        <Box sx={{ p: 1 }}></Box>
+                        {publishDate}
                     </Box>
                 </Box>
                 {thumbsUp}
@@ -168,7 +179,7 @@ function ListCard(props) {
                     <Box sx={{ translate: arrowTranslate, transform: arrowTransform }}>
                         <IconButton
                             onClick={() => {
-                                handleOpenList(idNamePair)
+                                handleOpenList()
                             }}>
                             <KeyboardArrowDownIcon style={{ color: 'black', fontSize:'30pt'}} />
                         </IconButton>

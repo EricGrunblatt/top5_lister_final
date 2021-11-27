@@ -76,8 +76,11 @@ const HomeToolbar = () => {
 
     function handleKeyPress(event) {
         if(event.code === "Enter") {
-            store.setSearchBar(event.target.value);
-            console.log(event.target.value);
+            if(store.oneUserButtonActive || store.communityButtonActive) {
+                store.setSearchBar(event.target.value);
+                console.log(event.target.value);
+            }
+           
         }
     }
 
