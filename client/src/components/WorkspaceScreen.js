@@ -19,8 +19,14 @@ function WorkspaceScreen() {
     const history = useHistory();
     const [disablePublish, setDisPublish] = useState(false);
 
-    let listArray = store.idNamePairs.filter(list => (list.ownerEmail === auth.user.email)).map(list => list.name);
+    let listArray = store.idNamePairs.filter(list => (list.ownerEmail === auth.user.email && list.published !== '')).map(list => list.name);
+    console.log(listArray);
     useEffect(() => {
+        handleAllChanges();
+    }, []);
+
+    // Disable publish if list name/items are repeated or if anything is not alphanumeric
+    function handleAllChanges() {
         const repeatItem = store.currentList.items.some(
             (item, index) => store.currentList.items.indexOf(item) !== index)
         let listDuplicates = 0;
@@ -38,31 +44,7 @@ function WorkspaceScreen() {
         if(!store.currentList.name.match(/^[a-zA-Z0-9 _-]+$/)) {
             alphanumeric = false;
         }
-        if (repeatItem || listDuplicates >= 2 || !alphanumeric) {
-            setDisPublish(true);
-        }
-        else {
-            setDisPublish(false);
-        }
-    }, []);
-
-    // Disable publish if list name/items are repeated or if anything is not alphanumeric
-    
-
-    function handleListChange(event) {
-        store.currentList.name = event.target.value;
-        listArray = store.idNamePairs.filter(list => (list.ownerEmail === auth.user.email)).map(list => list.name);
-        let listDuplicates = 0;
-        for(let i = 0; i < listArray.length; i++) {
-            if(listArray[i] === store.currentList.name) {
-                listDuplicates++;
-            }
-        }
-        let alphanumeric = true; 
-        if(!store.currentList.name.match(/^[a-zA-Z0-9 _-]+$/)) {
-            alphanumeric = false;
-        }
-        if (listDuplicates >= 2 || !alphanumeric) {
+        if (repeatItem || listDuplicates >= 1 || !alphanumeric) {
             setDisPublish(true);
         }
         else {
@@ -70,22 +52,14 @@ function WorkspaceScreen() {
         }
     }
 
+    function handleListChange(event) {
+        store.currentList.name = event.target.value;
+        handleAllChanges();
+    }
+
     function handleItemChange(event, index) {
         store.currentList.items[index] = event.target.value;
-        const repeatItem = store.currentList.items.some(
-            (item, index) => store.currentList.items.indexOf(item) !== index)
-        let alphanumeric = true;
-        for(let i = 0; i < store.currentList.items.length; i++) {
-            if(!store.currentList.items[i].match(/^[a-zA-Z0-9 _-]+$/)) {
-                alphanumeric = false;
-            }
-        }
-        if (repeatItem || !alphanumeric) {
-            setDisPublish(true);
-        }
-        else {
-            setDisPublish(false);
-        }
+        handleAllChanges();
     }
 
     function handleFocus(event) {

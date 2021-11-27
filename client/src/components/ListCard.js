@@ -3,11 +3,12 @@ import { GlobalStoreContext } from '../store'
 import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { useHistory } from 'react-router-dom'
 
 /*
@@ -21,13 +22,11 @@ function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
     const { idNamePair } = props;
     const history = useHistory();
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState("");
 
     function handleLoadList(id) {
-        if (!cardStatus) {
-            // CHANGE THE CURRENT LIST
-            store.setCurrentList(id);
-        }
+        // CHANGE THE CURRENT LIST
+        store.setCurrentList(id);
     }
 
     function handleLike() {
@@ -59,34 +58,40 @@ function ListCard(props) {
         store.markListForDeletion(id);
     }
 
-    let openList = "";
-    let arrowTransform = 'rotate(0deg)';
-    let arrowTranslate = 3;
-    function handleOpenList() {
-        /*arrowTransform = 'rotate(180deg)';
-        arrowTranslate = -3;
-        openList = (
-            <Box className="list-card-items">
-                Hello
-            </Box>
-        )*/
-        if(idNamePair.published !== '') {
-            idNamePair.views = idNamePair.views + 1;
-            store.updateList(idNamePair);
-            history.push("/");
-        }
-    }
-
-    let cardStatus = false;
-    if(store.isListNameEditActive) {
-        cardStatus = true;
-    }
-
     let publishedStatus = <div onClick={() => {
         handleLoadList(idNamePair._id)
     }}><Link style={{ color:'red' }}to="/">edit</Link></div>;
 
-    let thumbsUp, thumbsDown;
+    let openButton = "";
+    if(!open) {
+        openButton = (
+            <Box sx={{ translate: -12 }}>
+                <Button style={{ maxWidth: '25px', maxHeight: '25px', minWidth: '25px', minHeight: '25px' }}
+                    onClick={() => {
+                        handleOpenList()
+                    }}
+                     >
+                    <KeyboardArrowDownIcon style={{ color: 'black', fontSize:'30pt'}} />
+                </Button>
+            </Box>
+        )
+    }
+    let closeButton = "";
+    if(open) {
+        closeButton = (
+            <Box sx={{ translate: -12 }}>
+                <Button style={{ maxWidth: '25px', maxHeight: '25px', minWidth: '25px', minHeight: '25px' }}
+                    onClick={() => {
+                        handleCloseList()
+                    }}
+                     >
+                    <KeyboardArrowUpIcon style={{ color: 'black', fontSize:'30pt'}} />
+                </Button>
+            </Box>
+        )
+    }
+
+    let thumbsUp, thumbsDown, views;
     let userName = idNamePair.userName;
     let publishDate = "";
     let publishedColor = '#FFFFF1';
@@ -98,36 +103,84 @@ function ListCard(props) {
         publishedStatus = "Published: ";
         publishedColor = '#D4D5F5';
         dateEditColor = "black";
+
+        // Shows thumbs up with number of likes
         thumbsUp = (
-            <Box sx={{ p: 1 }}>
-                <IconButton 
-                    disabled={cardStatus}
+            <Box sx={{ display: 'flex' }}>
+                <Button style={{ maxWidth: '50px', maxHeight: '40px', minWidth: '50px', minHeight: '40px' }}
                     onClick={handleLike} aria-label='like'>
-                    <ThumbUpIcon style={{ color: thumbUpColor, fontSize:'30pt' }} />
-                </IconButton>
-                {idNamePair.likes}
-                <Box sx={{ p: 1 }}></Box>
-                <Box sx={{ fontSize: '15px'}}>
-                    Views: {idNamePair.views}
+                    <ThumbUpIcon style={{ color: thumbUpColor, fontSize:'30pt' }}/>
+                </Button>
+                <Box sx={{ fontSize: '25pt' }}>
+                    {idNamePair.likes}
                 </Box>
+                <Box sx={{ p: 1 }}></Box>
             </Box>
         )
+
+        // Shows thumbs down with number of dislikes
         thumbsDown = (
-            <Box sx={{ p: 1 }}>
-                <IconButton 
-                    disabled={cardStatus}
+            <Box sx={{ display: 'flex' }}>
+                <Button style={{ maxWidth: '50px', maxHeight: '40px', minWidth: '50px', minHeight: '40px' }}
                     onClick={handleDislike} aria-label='dislike'>
                     <ThumbDownIcon style={{ color: thumbDownColor, fontSize:'30pt'}} />
-                </IconButton>
-                {idNamePair.dislikes}
-                <Box sx={{ p: 2 }}></Box>
+                </Button>
+                <Box sx={{ fontSize: '25pt' }}>
+                    {idNamePair.dislikes}
+                </Box>
+                <Box sx={{ p: 1 }}></Box>
             </Box>
         )
+
+        // Shows publish date
         publishDate = (      
             <Box style={{ display: 'flex', color: 'green', fontWeight: 'bold', fontSize:'13pt' }}>
                 {idNamePair.published}
             </Box>
         )
+
+        // Displays views
+        views = (
+            <Box sx={{ translate: -120, display: 'flex', fontSize: '13pt'}}>
+                <Box>
+                    Views:
+                </Box>
+                <Box sx={{ p: 1 }}></Box>
+                <Box sx={{ flexGrow: 1 }}
+                    style={{ color: '#B2323C' }}>
+                    {idNamePair.views}
+                </Box> 
+            </Box>
+        )
+    }
+
+    function handleCloseList() {
+        setOpen("");
+    }
+
+    function handleOpenList() {
+        //Handles the list when user presses open
+        setOpen(
+            <div>
+                <Box sx={{ p: 1 }}></Box> 
+                <Box style={{ display: 'flex', height: '200px' }}>
+                    <Box sx={{ width: '50%' }} 
+                        style={{ color: '#D4AF3B', borderRadius: '10px', width: '100%', display: 'flex', height: '200px', backgroundColor: '#2C3271'}}>
+                        1. 
+                    </Box>
+                    <Box sx={{ p: 0.5 }}></Box>  
+                    <Box style={{ borderRadius: '10px', backgroundColor: '#D4AF3B' }}>
+                        Comments
+                    </Box>
+                </Box>
+            </div>
+            
+        )
+        if(idNamePair.published !== '') {
+            idNamePair.views = idNamePair.views + 1;
+            store.updateList(idNamePair);
+            history.push("/");
+        }
     }
 
     let cardElement =
@@ -145,46 +198,51 @@ function ListCard(props) {
                 width: '100%'
             }}
         >
-                <Box sx={{ p: 1, flexGrow: 1 }}>
-                    {idNamePair.name}
-                    <Box  width='5%' 
-                        style={{ display: 'flex', fontWeight: 'bold', fontSize:'12pt' }}
-                        sx={{ marginTop: 1 }}>
-                        By:  
-                        <Box sx={{ p: 1 }}></Box>      
-                        <Box style={{ display: 'flex', color: 'blue', fontWeight: 'bold', fontSize:'12pt' }}>
-                            {userName}
-                        </Box> 
+            <Box sx={{ width: '40%', p: 1, flexGrow: 1 }}>
+                <Box sx={{ display: 'flex' }}>
+                    <Box sx={{ flexGrow: 1 }}>
+                        {idNamePair.name}
                     </Box>
-                    {openList}
-                    <Box style={{ display: 'flex', color: dateEditColor, fontWeight: 'bold', fontSize:'13pt' }}
-                        sx={{ marginTop: 1 }}>
-                        {publishedStatus}
-                        <Box sx={{ p: 1 }}></Box>
-                        {publishDate}
+                    <Box sx={{ display: 'flex' }}>
+                        {thumbsUp}
+                        {thumbsDown}
+                        <Box sx={{ display: 'flex' }}>
+                            <Button style={{ maxWidth: '50px', maxHeight: '40px', minWidth: '50px', minHeight: '40px' }}
+                                onClick={(event) => {
+                                handleDeleteList(event, idNamePair._id)
+                            }} aria-label='delete'>
+                                <DeleteIcon style={{ color: 'black', fontSize:'35pt'}} />
+                            </Button>
+                        </Box>
                     </Box>
                 </Box>
-                {thumbsUp}
-                {thumbsDown}
-                <div>
-                    <Box>
-                        <IconButton 
-                            disabled={cardStatus}
-                            onClick={(event) => {
-                            handleDeleteList(event, idNamePair._id)
-                        }} aria-label='delete'>
-                            <DeleteIcon style={{ color: 'black', fontSize:'35pt'}} />
-                        </IconButton>
+                <Box style={{ display: 'flex', fontWeight: 'bold', fontSize:'12pt' }}>
+                    By:  
+                    <Box sx={{ p: 1 }}></Box>      
+                    <Box style={{ display: 'flex', color: 'blue', fontWeight: 'bold', fontSize:'12pt' }}>
+                        {userName}
+                    </Box> 
+                </Box>
+                {open}
+                <Box style={{ display: 'flex', color: dateEditColor, fontWeight: 'bold', fontSize:'13pt' }}
+                    sx={{ marginTop: 1, flexGrow: 1 }}>
+                    <Box sx={{ flexGrow: 1 }}>
+                        <Box sx={{ display: 'flex' }}>
+                            {publishedStatus}
+                            <Box sx={{ p: 1 }}></Box>
+                            <Box sx={{ display: 'flex' }}>
+                                {publishDate}
+                            </Box>
+                        </Box>
                     </Box>
-                    <Box sx={{ translate: arrowTranslate, transform: arrowTransform }}>
-                        <IconButton
-                            onClick={() => {
-                                handleOpenList()
-                            }}>
-                            <KeyboardArrowDownIcon style={{ color: 'black', fontSize:'30pt'}} />
-                        </IconButton>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        {views}
+                        <Box sx={{ p: 1 }}></Box>
+                        {openButton}
+                        {closeButton}
                     </Box>
-                </div>
+                </Box>
+            </Box>
         </ListItem>
 
 

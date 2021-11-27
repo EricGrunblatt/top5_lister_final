@@ -169,13 +169,6 @@ body {
   overflow: auto;
 }
 
-#list-card-items {
-  left: 5%;
-  width: 45%;
-  height: 100px;
-  
-}
-
 .list-card,
 .selected-list-card,
 .unselected-list-card {
