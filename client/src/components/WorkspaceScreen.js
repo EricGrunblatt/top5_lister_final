@@ -1,12 +1,12 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import HomeToolbar from './HomeToolbar.js'
-import List from '@mui/material/List';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import ListItem from '@mui/material/ListItem';
 import { GlobalStoreContext } from '../store/index.js'
 import { useHistory } from 'react-router-dom'
+import AuthContext from '../auth';
 /*
     This React component lets us edit a loaded list, which only
     happens when we are on the proper route.
@@ -14,9 +14,9 @@ import { useHistory } from 'react-router-dom'
     @author McKilla Gorilla
 */
 function WorkspaceScreen() {
+    const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const history = useHistory();
-    const [text, setText] = useState("");
 
     let currentListName = store.currentList.name;
     let items = store.currentList.items;
@@ -30,7 +30,8 @@ function WorkspaceScreen() {
     }
 
     let disablePublish = false;
-    let listArray = store.idNamePairs;
+    let listArray = store.idNamePairs.filter(list => (list.ownerEmail === auth.user.email));
+    console.log(listArray);
     const repeatItem = items.some(
         (item, index) => items.indexOf(item) !== index)
     const repeatList = listArray.some(
@@ -63,8 +64,9 @@ function WorkspaceScreen() {
     }
 
     function handleListBlur(event) {
-        let listArray = store.idNamePairs;
-        if(listArray.includes(event.target.value)) {
+        const repeatList = listArray.some(
+            (list, index) => listArray.indexOf(list) !== index)
+        if (repeatList) {
             disablePublish = true;
         }
     }
@@ -137,7 +139,7 @@ function WorkspaceScreen() {
                         onBlur={(event) => {
                             handleListBlur(event)
                         }}
-                        autofocus>
+                        autoFocus>
                     </TextField>
                 </div>
                 <div id="workspace-edit">

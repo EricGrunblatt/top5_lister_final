@@ -26,7 +26,8 @@ export default function AppBanner() {
     };
 
     const handleGuest = () => {
-
+        store.accountGuest = true;
+        handleMenuClose();
     };
 
     const handleLogout = () => {
@@ -53,7 +54,7 @@ export default function AppBanner() {
         >
             <MenuItem onClick={handleMenuClose}><Link to='/login/'>Login</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
-            <MenuItem onClick={handleGuest}>Continue as Guest</MenuItem>
+            <MenuItem onClick={handleGuest}><Link to='/'>Continue as Guest</Link></MenuItem>
         </Menu>
     );
     const loggedInMenu = 
@@ -98,9 +99,16 @@ export default function AppBanner() {
                         variant="h4"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}                        
+                        sx={{ display: { xs: 'none', sm: 'block' } }} 
+                        onClick={() => {
+                            store.accountGuest = false
+                        }}                        
                     >
-                        <Link style={{ textDecoration: 'none', color: '#D4AF3B' }} to='/'>T<sup>5</sup>L</Link>
+                        <Link style={{ textDecoration: 'none', color: '#D4AF3B' }} 
+                            to='/'
+                        >
+                            T<sup>5</sup>L
+                        </Link>
                     </Typography>
                     <Box sx={{ flexGrow: 1 }}></Box>
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

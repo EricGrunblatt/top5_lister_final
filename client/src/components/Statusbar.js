@@ -13,7 +13,6 @@ import AddIcon from '@mui/icons-material/Add';
 function Statusbar() {
     const { store } = useContext(GlobalStoreContext);
     const { auth } = useContext(AuthContext);
-    let text ="";
     let status;
 
     let disableAdd = false;
@@ -23,19 +22,30 @@ function Statusbar() {
         //status = <Typography variant="h4">{text}</Typography>;
     }
     else if(auth.loggedIn) {
-        status = 
-            <>
-                <Fab 
-                    disabled={disableAdd}
-                    color="primary" 
-                    aria-label="add"
-                    id="add-list-button"
-                    onClick={handleCreateNewList}
-                >
-                    <AddIcon />
-                </Fab>
-                    <Typography variant="h2">Your Lists</Typography>   
-            </>
+        if(store.homeButtonActive) {
+            status = 
+                <>
+                    <Fab 
+                        disabled={disableAdd}
+                        color="primary" 
+                        aria-label="add"
+                        id="add-list-button"
+                        onClick={handleCreateNewList}
+                    >
+                        <AddIcon />
+                    </Fab>
+                        <Typography variant="h2">Your Lists</Typography>   
+                </>
+        }
+        if(store.allUsersButtonActive) {
+            status = <Typography variant="h2">All Lists</Typography>
+        }
+        if(store.oneUserButtonActive) {
+            status = <Typography variant="h2">User Lists</Typography>
+        }
+        if(store.communityButtonActive) {
+            status = <Typography variant="h2">Community Lists</Typography>
+        }
              
     }
 

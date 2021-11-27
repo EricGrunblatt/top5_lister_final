@@ -74,7 +74,12 @@ const HomeToolbar = () => {
         </Menu>
     )
 
-    
+    function handleKeyPress(event) {
+        if(event.code === "Enter") {
+            store.setSearchBar(event.target.value);
+            console.log(event.target.value);
+        }
+    }
 
     function handleHome() {
         disableHome = false;
@@ -108,6 +113,9 @@ const HomeToolbar = () => {
 
     if(!auth.loggedIn) {
         disableHome = true;
+    }
+    if(auth.loggedIn) {
+        store.accountGuest = false;
     }
 
     if(store.currentList) {
@@ -165,18 +173,24 @@ const HomeToolbar = () => {
                     name="name"
                     autoComplete="Search Bar"
                     defaultValue='Search'
+                    onKeyPress={(event) => {
+                        handleKeyPress(event)
+                    }}
+                    onFocus={(event) => {
+                        event.target.select()
+                    }}
                     inputProps={{style: {fontSize: 24}}}>
                 </TextField>
                 <Box sx={{ flexGrow: 1 }}></Box>
                 <IconButton sx={{ color: 'black', fontSize: '25px', fontWeight: 'bold' }}
-                    disabled={disableSortBy}>
+                    disabled={disableSortBy}
+                    onClick={handleSortMenuOpen}>
                     Sort By
-                    <SortIcon sx={{ fontSize: 40}}
+                    <SortIcon sx={{ fontSize: 40 }}
                         edge="end"
                         aria-label="sort by menu"
                         aria-controls="sort-by-menu"
                         aria-haspopup="true"
-                        onClick={handleSortMenuOpen}
                         color="inherit"/>
                 </IconButton>
             </div>

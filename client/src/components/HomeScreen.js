@@ -20,7 +20,7 @@ const HomeScreen = () => {
     }, []);
 
     let listCard = "";
-    if(store.idNamePairs !== undefined) {
+    if(store.homeButtonActive) {
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {
@@ -39,6 +39,38 @@ const HomeScreen = () => {
             <List sx={{ width: '90%', left: '5%' }}>
             {
                 store.idNamePairs.filter(idPair => (idPair.published !== '')).map(pair => (
+                    <ListCard
+                        key={pair._id}
+                        idNamePair={pair}
+                        selected={false}
+                        userName={pair.userName}
+
+                    />
+                ))
+            }
+            </List>;
+    }
+    if(store.oneUserButtonActive && store.searchBar !== null) {
+        listCard = 
+            <List sx={{ width: '90%', left: '5%' }}>
+            {
+                store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.userName === store.searchBar)).map(pair => (
+                    <ListCard
+                        key={pair._id}
+                        idNamePair={pair}
+                        selected={false}
+                        userName={pair.userName}
+
+                    />
+                ))
+            }
+            </List>;
+    }
+    if(store.communityButtonActive) {
+        listCard = 
+            <List sx={{ width: '90%', left: '5%' }}>
+            {
+                store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.name === store.searchBar)).map(pair => (
                     <ListCard
                         key={pair._id}
                         idNamePair={pair}
