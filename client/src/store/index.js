@@ -311,8 +311,8 @@ function GlobalStoreContextProvider(props) {
             items: ["?", "?", "?", "?", "?"],
             ownerEmail: auth.user.email,
             userName: auth.user.userName,
-            likes: 0,
-            dislikes: 0,
+            likes: [],
+            dislikes: [],
             comments: [],
             published: "",
             views: 0

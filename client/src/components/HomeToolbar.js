@@ -31,22 +31,53 @@ const HomeToolbar = () => {
 
 
     function handleSortNewest() {
+        let listArray = store.idNamePairs;
+        listArray.sort((a, b) => {
+            let dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
+            let dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
+            return dateA-dateB});
+        listArray.reverse();
+        store.idNamePairs = listArray;
+        history.push("/");
         handleSortMenuClose();
     }
 
     function handleSortOldest() {
+        let listArray = store.idNamePairs;
+        listArray.sort((a, b) => {
+            let dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
+            let dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
+            return dateA-dateB});
+        store.idNamePairs = listArray;
+        history.push("/");
+        handleSortMenuClose();
         handleSortMenuClose();
     }
 
     function handleSortViews() {
+        let listArray = store.idNamePairs;
+        listArray.sort((a, b) => (a.views > b.views ? 1 : -1));
+        listArray.reverse();
+        store.idNamePairs = listArray;
+        history.push("/");
         handleSortMenuClose();
     }
 
     function handleSortLikes() {
+        let listArray = store.idNamePairs;
+        listArray.sort((a, b) => (a.likes.length > b.likes.length ? 1: -1));
+        listArray.reverse();
+        store.idNamePairs = listArray;
+        history.push();
         handleSortMenuClose();
     }
 
     function handleSortDislikes() {
+        let listArray = store.idNamePairs;
+        listArray.sort((a, b) => (a.dislikes.length > b.dislikes.length ? 1: -1));
+        listArray.reverse();
+        store.idNamePairs = listArray;
+        history.push();
         handleSortMenuClose();
     }
 

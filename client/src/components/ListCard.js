@@ -19,7 +19,7 @@ import AuthContext from '../auth';
     a list for editing and it has controls for changing its 
     name or deleting it.
     
-    @author McKilla Gorilla
+    @author Eric Grunblatt
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
@@ -34,25 +34,33 @@ function ListCard(props) {
     }
 
     function handleLike() {
-        if(thumbUpColor === "black") {
-            thumbUpColor = "white";
+        if(idNamePair.likes.includes(auth.user.userName)) {
+            let index = idNamePair.likes.indexOf(auth.user.userName);
+            idNamePair.likes.splice(index, 1);
         }
         else {
-            thumbUpColor = "black";
+            if(idNamePair.dislikes.includes(auth.user.userName)) {
+                let index = idNamePair.likes.indexOf(auth.user.userName);
+                idNamePair.dislikes.splice(index, 1);
+            }
+            idNamePair.likes.push(auth.user.userName);
         }
-        idNamePair.likes = idNamePair.likes + 1;
         store.updateList(idNamePair);
         history.push("/");
     }
 
     function handleDislike() {
-        if(thumbDownColor === "white") {
-            thumbDownColor = "black";
+        if(idNamePair.dislikes.includes(auth.user.userName)) {
+            let index = idNamePair.dislikes.indexOf(auth.user.userName);
+            idNamePair.dislikes.splice(index, 1);
         }
         else {
-            thumbDownColor = "white";
+            if(idNamePair.likes.includes(auth.user.userName)) {
+                let index = idNamePair.likes.indexOf(auth.user.userName);
+                idNamePair.likes.splice(index, 1);
+            }
+            idNamePair.dislikes.push(auth.user.userName);
         }
-        idNamePair.dislikes = idNamePair.dislikes + 1;
         store.updateList(idNamePair);
         history.push("/");
     }
@@ -97,6 +105,20 @@ function ListCard(props) {
     let thumbDownColor = "black";
     let closeButton = "";
     let textfield = "";
+    let commentWidth = '0%';
+    let itemWidth = '100%';
+    let disableThumbs = false;
+
+    if (!auth.loggedIn) {
+        disableThumbs = true;
+    }
+
+    if(idNamePair.likes.includes(auth.user.userName)) {
+        thumbUpColor = "white";
+    }
+    if(idNamePair.dislikes.includes(auth.user.userName)) {
+        thumbDownColor = "white";
+    }
 
     if(open) {
         closeButton = (
@@ -125,9 +147,6 @@ function ListCard(props) {
         )
     }
 
-    let commentWidth = '0%';
-    let itemWidth = '100%';
-
     if(idNamePair.published !== '') {
         publishedStatus = "Published: ";
         publishedColor = '#D4D5F5';
@@ -139,11 +158,11 @@ function ListCard(props) {
         thumbsUp = (
             <Box sx={{ display: 'flex' }}>
                 <Button style={{ maxWidth: '50px', maxHeight: '40px', minWidth: '50px', minHeight: '40px' }}
-                    onClick={handleLike} aria-label='like'>
+                    onClick={handleLike} aria-label='like' disabled={disableThumbs}>
                     <ThumbUpIcon style={{ color: thumbUpColor, fontSize:'30pt' }}/>
                 </Button>
                 <Box sx={{ marginTop: '10%', fontSize: '20pt' }}>
-                    {idNamePair.likes}
+                    {idNamePair.likes.length}
                 </Box>
                 <Box sx={{ p: 1 }}></Box>
             </Box>
@@ -153,11 +172,11 @@ function ListCard(props) {
         thumbsDown = (
             <Box sx={{ display: 'flex' }}>
                 <Button style={{ maxWidth: '50px', maxHeight: '40px', minWidth: '50px', minHeight: '40px' }}
-                    onClick={handleDislike} aria-label='dislike'>
+                    onClick={handleDislike} aria-label='dislike' disabled={disableThumbs}>
                     <ThumbDownIcon style={{ color: thumbDownColor, fontSize:'30pt'}} />
                 </Button>
                 <Box sx={{ marginTop: '10%', fontSize: '20pt' }}>
-                    {idNamePair.dislikes}
+                    {idNamePair.dislikes.length}
                 </Box>
                 <Box sx={{ p: 1 }}></Box>
             </Box>
@@ -209,14 +228,13 @@ function ListCard(props) {
             let text = event.target.value;
             let comment = {userName, text};
             idNamePair.comments.push(comment);
-            console.log(idNamePair.comments);
             store.updateList(idNamePair);
             setOpen(
                 <Box>
                     <Box sx={{ p: 1 }}></Box> 
-                    <Box style={{ display: 'flex' }}>
-                        <Box sx={{ width: itemWidth }} 
-                            style={{ color: '#D4AF3B', borderRadius: '10px', display: 'flex', backgroundColor: '#2C3271'}}>
+                        <Box style={{ display: 'flex' }}>
+                            <Box sx={{ width: itemWidth }} 
+                                style={{ color: '#D4AF3B', borderRadius: '10px', display: 'flex', backgroundColor: '#2C3271'}}>
                             <Box>
                                 <Box style={{ marginTop: 8, marginBottom: 8, marginLeft: 8, fontSize: '25pt' }}>1. {idNamePair.items[0]}</Box>
                                 <Box style={{ marginBottom: 8, marginLeft: 8, fontSize: '25pt' }}>2. {idNamePair.items[1]}</Box>
@@ -261,13 +279,12 @@ function ListCard(props) {
 
     function handleOpenList() {
         //Handles the list when user presses open
-        console.log(idNamePair.comments);
         setOpen(
             <Box>
                 <Box sx={{ p: 1 }}></Box> 
-                <Box style={{ display: 'flex' }}>
-                    <Box sx={{ width: itemWidth }} 
-                        style={{ color: '#D4AF3B', borderRadius: '10px', display: 'flex', backgroundColor: '#2C3271'}}>
+                    <Box style={{ display: 'flex' }}>
+                        <Box sx={{ width: itemWidth }} 
+                            style={{ color: '#D4AF3B', borderRadius: '10px', display: 'flex', backgroundColor: '#2C3271'}}>
                         <Box>
                             <Box style={{ marginTop: 8, marginBottom: 8, marginLeft: 8, fontSize: '25pt' }}>1. {idNamePair.items[0]}</Box>
                             <Box style={{ marginBottom: 8, marginLeft: 8, fontSize: '25pt' }}>2. {idNamePair.items[1]}</Box>
@@ -300,13 +317,13 @@ function ListCard(props) {
                         {textfield}
                     </Box>
                 </Box>
-            </Box>      
-        )
+            </Box>    
+        );   
         if(idNamePair.published !== '') {
             idNamePair.views = idNamePair.views + 1;
-            store.updateList(idNamePair);
-            history.push("/");
         }
+        store.updateList(idNamePair);
+        history.push("/");
     }
 
     let cardElement =
