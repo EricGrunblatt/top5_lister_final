@@ -175,8 +175,8 @@ function GlobalStoreContextProvider(props) {
                     allUsersButtonActive: false,
                     oneUserButtonActive: false,
                     communityButtonActive: false,
-                    searchBar: null,
-                    accountGuest: store.accountGuest
+                    searchBar: store.searchBar,
+                    accountGuest: false
                 });
             }
             // ALL USERS BUTTON ACTIVE
@@ -190,7 +190,7 @@ function GlobalStoreContextProvider(props) {
                     allUsersButtonActive: true,
                     oneUserButtonActive: false,
                     communityButtonActive: false,
-                    searchBar: null,
+                    searchBar: store.searchBar,
                     accountGuest: store.accountGuest
                 });
             }

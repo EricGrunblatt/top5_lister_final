@@ -78,7 +78,6 @@ const HomeToolbar = () => {
         if(event.code === "Enter") {
             if(store.oneUserButtonActive || store.communityButtonActive) {
                 store.setSearchBar(event.target.value);
-                console.log(event.target.value);
             }
            
         }

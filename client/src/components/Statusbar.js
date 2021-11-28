@@ -3,6 +3,7 @@ import AuthContext from '../auth'
 import { GlobalStoreContext } from '../store'
 import { Typography } from '@mui/material'
 import { Fab } from '@mui/material'
+import Button from '@mui/material/Button'
 import AddIcon from '@mui/icons-material/Add';
 
 /*
@@ -27,7 +28,7 @@ function Statusbar() {
                 <>
                     <Fab 
                         disabled={disableAdd}
-                        color="primary" 
+                        style={{ color: 'white', backgroundColor: '#B2323C' }} 
                         aria-label="add"
                         id="add-list-button"
                         onClick={handleCreateNewList}

@@ -9,7 +9,7 @@ const Top5ListSchema = new Schema(
         userName: { type: String },
         likes: { type: Number },
         dislikes: { type: Number },
-        comments: {type: [{String, String}] },
+        comments: {type: [{userName: {type: String}, text: {type: String}}]},
         published: { type: String },
         views: { type: Number }
     },
