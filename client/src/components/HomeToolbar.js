@@ -159,11 +159,28 @@ const HomeToolbar = () => {
         disableSortBy = true;
     }
 
+    let homeButtonColor = "black";
+    let allButtonColor = "black";
+    let oneButtonColor = "black";
+    let communityButtonColor = "black";
+    if(store.homeButtonActive) {
+        homeButtonColor = "white";
+    }
+    if(store.allUsersButtonActive) {
+        allButtonColor = "white";
+    }
+    if(store.oneUserButtonActive) {
+        oneButtonColor = "white";
+    }
+    if(store.communityButtonActive) {
+        communityButtonColor = "white";
+    }
+
     return (
         <Box>
             <div id="list-selector-heading">
                 <IconButton 
-                    sx={{ color: 'black' }}
+                    sx={{ color: homeButtonColor }}
                     disabled={disableHome}
                     aria-label="home"
                     id="home-button"
@@ -172,7 +189,7 @@ const HomeToolbar = () => {
                     <HomeIcon sx={{ fontSize: 40 }}/>
                 </IconButton>
                 <IconButton 
-                    sx={{ color: 'black' }}
+                    sx={{ color: allButtonColor }}
                     disabled={disableAllUsers}
                     aria-label="allusers"
                     id="all-users-button"
@@ -181,7 +198,7 @@ const HomeToolbar = () => {
                     <GroupIcon sx={{ fontSize: 40 }}/>
                 </IconButton>
                 <IconButton 
-                    sx={{ color: 'black' }}
+                    sx={{ color: oneButtonColor }}
                     disabled={disableUser}
                     aria-label="user"
                     id="user-button"
@@ -190,7 +207,7 @@ const HomeToolbar = () => {
                     <PersonIcon sx={{ fontSize: 40 }}/>
                 </IconButton>
                 <IconButton
-                    sx={{ color: 'black' }} 
+                    sx={{ color: communityButtonColor }} 
                     disabled={disableCommunity}
                     aria-label="community"
                     id="community-button"

@@ -94,7 +94,7 @@ function ListCard(props) {
             </Box>
         )
     }
-    
+
     let thumbsUp, thumbsDown, views;
     let garbageCan = <Box sx={{ p: '20px' }}></Box>;
     let userName = idNamePair.userName;
@@ -224,7 +224,7 @@ function ListCard(props) {
 
     function handleKeyPress(event) {
         if(event.code === "Enter") {
-            let userName = idNamePair.userName;
+            let userName = auth.user.userName;
             let text = event.target.value;
             let comment = {userName, text};
             idNamePair.comments.push(comment);
@@ -254,7 +254,7 @@ function ListCard(props) {
                                             style={{ borderColor: 'black', color: 'blue', width: '94%', borderRadius: '10px', backgroundColor: '#D4AF3B'}} 
                                         >
                                             <Box style={{ marginLeft: 10, marginRight: 10, display: 'flex', fontWeight: 'bold', fontSize:'12pt' }}>
-                                                <Link onClick={() => {handleGoToUser(userName)}} style={{ color: 'blue' }} to='/'>{userName}</Link>
+                                                <Link onClick={() => {handleGoToUser(userName)}} style={{ color: 'blue' }} to='/'>{comment.userName}</Link>
                                             </Box> 
                                             <Box style={{ marginLeft: 10, marginRight: 10, fontWeight: 'normal', fontSize: '15pt', color: 'black' }}>
                                                 {comment.text}
