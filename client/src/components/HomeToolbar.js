@@ -98,7 +98,7 @@ const HomeToolbar = () => {
             onClose={handleSortMenuClose}
         >
             <MenuItem onClick={handleSortNewest}>Publish Date (Newest)</MenuItem>
-            <MenuItem onClick={handleSortOldest}>Publish Data (Oldest)</MenuItem>
+            <MenuItem onClick={handleSortOldest}>Publish Date (Oldest)</MenuItem>
             <MenuItem onClick={handleSortViews}>Views</MenuItem>
             <MenuItem onClick={handleSortLikes}>Likes</MenuItem>
             <MenuItem onClick={handleSortDislikes}>Dislikes</MenuItem>
@@ -110,7 +110,6 @@ const HomeToolbar = () => {
             if(store.oneUserButtonActive || store.communityButtonActive) {
                 store.setSearchBar(event.target.value);
             }
-           
         }
     }
 

@@ -30,7 +30,8 @@ export const GlobalStoreActionType = {
     ONE_USER_BUTTON_ACTIVE: "ONE_USER_BUTTON_ACTIVE",
     COMMUNITY_BUTTON_ACTIVE: "COMMUNITY_BUTTON_ACTIVE",
     STORE_SEARCH_BAR: "STORE_SEARCH_BAR",
-    ACCOUNT_GUEST: "ACCOUNT_GUEST"
+    ACCOUNT_GUEST: "ACCOUNT_GUEST",
+    SET_TO_FALSE: "SET_TO_FALSE"
 }
 
 // WITH THIS WE'RE MAKING OUR GLOBAL DATA STORE
@@ -168,7 +169,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.HOME_BUTTON_ACTIVE: {
                 return setStore({
                     idNamePairs: store.idNamePairs,
-                    currentList: store.currentList,
+                    currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
                     homeButtonActive: true,
@@ -183,7 +184,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.ALL_USERS_BUTTON_ACTIVE: {
                 return setStore({
                     idNamePairs: store.idNamePairs,
-                    currentList: store.currentList,
+                    currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
                     homeButtonActive: false,
@@ -198,7 +199,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.ONE_USER_BUTTON_ACTIVE: {
                 return setStore({
                     idNamePairs: store.idNamePairs,
-                    currentList: store.currentList,
+                    currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
                     homeButtonActive: false,
@@ -213,7 +214,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.COMMUNITY_BUTTON_ACTIVE: {
                 return setStore({
                     idNamePairs: store.idNamePairs,
-                    currentList: store.currentList,
+                    currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
                     homeButtonActive: false,
@@ -228,7 +229,7 @@ function GlobalStoreContextProvider(props) {
             case GlobalStoreActionType.STORE_SEARCH_BAR: {
                 return setStore({
                     idNamePairs: store.idNamePairs,
-                    currentList: store.currentList,
+                    currentList: null,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
                     homeButtonActive: store.homeButtonActive,
@@ -246,11 +247,11 @@ function GlobalStoreContextProvider(props) {
                     currentList: store.currentList,
                     newListCounter: store.newListCounter,
                     listMarkedForDeletion: null,
-                    homeButtonActive: store.homeButtonActive,
+                    homeButtonActive: false,
                     allUsersButtonActive: store.allUsersButtonActive,
                     oneUserButtonActive: store.oneUserButtonActive,
                     communityButtonActive: store.communityButtonActive,
-                    searchBar: payload,
+                    searchBar: store.searchBar,
                     accountGuest: true
                 });
             }

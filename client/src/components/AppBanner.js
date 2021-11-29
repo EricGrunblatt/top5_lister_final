@@ -26,7 +26,8 @@ export default function AppBanner() {
     };
 
     const handleGuest = () => {
-        store.accountGuest = true;
+        store.setAccountGuest();
+        console.log(store.idNamePairs);
         handleMenuClose();
     };
 

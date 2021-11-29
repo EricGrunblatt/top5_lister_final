@@ -37,17 +37,16 @@ function Statusbar() {
                     </Fab>
                         <Typography variant="h2">Your Lists</Typography>   
                 </>
-        }
-        if(store.allUsersButtonActive) {
-            status = <Typography variant="h2">All Lists</Typography>
-        }
-        if(store.oneUserButtonActive) {
-            status = <Typography variant="h2">User Lists</Typography>
-        }
-        if(store.communityButtonActive) {
-            status = <Typography variant="h2">Community Lists</Typography>
-        }
-             
+        }    
+    }
+    if(store.allUsersButtonActive) {
+        status = <Typography variant="h2">All Lists</Typography>
+    }
+    if(store.oneUserButtonActive) {
+        status = <Typography variant="h2">User Lists</Typography>
+    }
+    if(store.communityButtonActive) {
+        status = <Typography variant="h2">Community Lists</Typography>
     }
 
     function handleCreateNewList() {

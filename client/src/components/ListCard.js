@@ -65,9 +65,9 @@ function ListCard(props) {
         history.push("/");
     }
 
-    function handleGoToUser(user) {
-        store.setSearchBar(user);
-        store.setOneUserButtonActive();
+    function handleGoToUser() {
+        store.searchBar = idNamePair.userName;
+        store.oneUserButtonActive = true;
         history.push("/");
     }
 
@@ -112,12 +112,25 @@ function ListCard(props) {
     if (!auth.loggedIn) {
         disableThumbs = true;
     }
-
-    if(idNamePair.likes.includes(auth.user.userName)) {
-        thumbUpColor = "white";
-    }
-    if(idNamePair.dislikes.includes(auth.user.userName)) {
-        thumbDownColor = "white";
+    else {
+        if(idNamePair.likes.includes(auth.user.userName)) {
+            thumbUpColor = "white";
+        }
+        if(idNamePair.dislikes.includes(auth.user.userName)) {
+            thumbDownColor = "white";
+        }
+        if(idNamePair.ownerEmail === auth.user.email && store.homeButtonActive) {
+            garbageCan = (
+                <Box sx={{ display: 'flex' }}>
+                    <Button style={{ maxWidth: '50px', maxHeight: '40px', minWidth: '50px', minHeight: '40px' }}
+                        onClick={(event) => {
+                        handleDeleteList(event, idNamePair._id)
+                    }} aria-label='delete'>
+                        <DeleteIcon style={{ color: 'black', fontSize:'35pt'}} />
+                    </Button>
+                </Box>
+            )
+        }
     }
 
     if(open) {
@@ -129,19 +142,6 @@ function ListCard(props) {
                     }}
                      >
                     <KeyboardArrowUpIcon style={{ color: 'black', fontSize:'30pt'}} />
-                </Button>
-            </Box>
-        )
-    }
-
-    if(idNamePair.ownerEmail === auth.user.email && store.homeButtonActive) {
-        garbageCan = (
-            <Box sx={{ display: 'flex' }}>
-                <Button style={{ maxWidth: '50px', maxHeight: '40px', minWidth: '50px', minHeight: '40px' }}
-                    onClick={(event) => {
-                    handleDeleteList(event, idNamePair._id)
-                }} aria-label='delete'>
-                    <DeleteIcon style={{ color: 'black', fontSize:'35pt'}} />
                 </Button>
             </Box>
         )
@@ -304,7 +304,7 @@ function ListCard(props) {
                                         style={{ borderColor: 'black', color: 'blue', width: '94%', borderRadius: '10px', backgroundColor: '#D4AF3B'}} 
                                     >
                                         <Box style={{ marginLeft: 10, marginRight: 10, display: 'flex', fontWeight: 'bold', fontSize:'12pt' }}>
-                                            <Link onClick={() => {handleGoToUser(userName)}} style={{ color: 'blue' }} to='/'>{userName}</Link>
+                                            <Link onClick={() => {handleGoToUser()}} style={{ color: 'blue' }} to='/'>{userName}</Link>
                                         </Box> 
                                         <Box style={{ marginLeft: 10, marginRight: 10, fontWeight: 'normal', fontSize: '15pt', color: 'black' }}>
                                             {comment.text}
@@ -357,7 +357,7 @@ function ListCard(props) {
                     <Box sx={{ p: 1 }}></Box>      
                     <Box style={{ display: 'flex', fontWeight: 'bold', fontSize:'12pt' }}>
                         <Link onClick={() => {
-                            handleGoToUser(userName)}}
+                            handleGoToUser()}}
                             style={{ color: 'blue' }} to='/'>{userName}</Link>
                     </Box> 
                 </Box>
