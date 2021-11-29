@@ -67,7 +67,10 @@ function ListCard(props) {
 
     function handleGoToUser() {
         store.searchBar = idNamePair.userName;
+        store.homeButtonActive = false;
+        store.allUsersButtonActive = false;
         store.oneUserButtonActive = true;
+        store.communityButtonActive = false;
         history.push("/");
     }
 

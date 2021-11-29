@@ -35,10 +35,14 @@ const HomeScreen = () => {
             </List>;
     }
     if (store.allUsersButtonActive) {
+        let listArray = store.idNamePairs;
+        if(store.searchBar !== null) {
+            listArray = listArray.filter(idPair => (idPair.name === store.searchBar));
+        }
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {
-                store.idNamePairs.filter(idPair => (idPair.published !== '')).map(pair => (
+                listArray.filter(idPair => (idPair.published !== '')).map(pair => (
                     <ListCard
                         key={pair._id}
                         idNamePair={pair}
@@ -60,23 +64,26 @@ const HomeScreen = () => {
                         idNamePair={pair}
                         selected={false}
                         userName={pair.userName}
-
                     />
                 ))
             }
             </List>;
     }
     if(store.communityButtonActive) {
+        store.loadIdNamePairs();
+        let listArray = store.idNamePairs;
+        if(store.searchBar !== null) {
+            listArray = listArray.filter(idPair => (idPair.name === store.searchBar));
+        }
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {
-                store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.name === store.searchBar)).map(pair => (
+                listArray.filter(idPair => (idPair.published !== '' && idPair.userName === "Community-Aggregate")).map(pair => (
                     <ListCard
                         key={pair._id}
                         idNamePair={pair}
                         selected={false}
                         userName={pair.userName}
-
                     />
                 ))
             }

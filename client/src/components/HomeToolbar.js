@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import api from '../api'
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import GroupIcon from '@mui/icons-material/Group';
@@ -21,15 +22,17 @@ const HomeToolbar = () => {
     const isMenuOpen = Boolean(anchorEl);
     const { auth } = useContext(AuthContext);
 
+    //Sort Menu open
     const handleSortMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
+    // Sort Menu close
     const handleSortMenuClose = () => {
         setAnchorEl(null);
     };
 
-
+    // Sort by date (newest)
     function handleSortNewest() {
         let listArray = store.idNamePairs;
         listArray.sort((a, b) => {
@@ -42,6 +45,7 @@ const HomeToolbar = () => {
         handleSortMenuClose();
     }
 
+    // Sort by date (oldest)
     function handleSortOldest() {
         let listArray = store.idNamePairs;
         listArray.sort((a, b) => {
@@ -54,6 +58,7 @@ const HomeToolbar = () => {
         handleSortMenuClose();
     }
 
+    // Sort by views
     function handleSortViews() {
         let listArray = store.idNamePairs;
         listArray.sort((a, b) => (a.views > b.views ? 1 : -1));
@@ -63,6 +68,7 @@ const HomeToolbar = () => {
         handleSortMenuClose();
     }
 
+    // Sort by likes
     function handleSortLikes() {
         let listArray = store.idNamePairs;
         listArray.sort((a, b) => (a.likes.length > b.likes.length ? 1: -1));
@@ -72,6 +78,7 @@ const HomeToolbar = () => {
         handleSortMenuClose();
     }
 
+    // Sort by dislikes
     function handleSortDislikes() {
         let listArray = store.idNamePairs;
         listArray.sort((a, b) => (a.dislikes.length > b.dislikes.length ? 1: -1));
@@ -81,6 +88,7 @@ const HomeToolbar = () => {
         handleSortMenuClose();
     }
 
+    // Sort menu display
     const menu = (
         <Menu
             anchorEl={anchorEl}
@@ -105,31 +113,97 @@ const HomeToolbar = () => {
         </Menu>
     )
 
+    // Handles all searches
     function handleKeyPress(event) {
         if(event.code === "Enter") {
-            if(store.oneUserButtonActive || store.communityButtonActive) {
-                store.setSearchBar(event.target.value);
+            if(store.allUsersButtonActive || store.oneUserButtonActive || store.communityButtonActive) {
+                if(event.target.value === '') {
+                    store.setSearchBar(null);
+                }
+                else {
+                    store.setSearchBar(event.target.value);
+                }
+                
+            }
+            // Community aggregate
+            if(store.communityButtonActive) {
+                let listArray = store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.userName === "Community-Aggregate"));
+                if (listArray.some(list => list.name === event.target.value)) {
+                    return;
+                }
+                listArray = store.idNamePairs.filter((idPair => (idPair.published !== '' && idPair.name === event.target.value))); 
+                if(listArray.length === 0) {
+                    return;
+                }
+                let aggregateVotes = [];
+                let itemName;
+                let votes;
+                for(let i = 0; i < listArray.length; i++) {
+                    for(let j = 0; j < 5; j++) {
+                        let result = aggregateVotes.map(obj => obj.itemName).includes(listArray[i].items[j]);
+                        if(!result) {
+                            itemName = listArray[i].items[j];
+                            votes = 5 - j;
+                            let itemVote = {itemName, votes};
+                            aggregateVotes.push(itemVote);
+                        }
+                        else {
+                            itemName = listArray[i].items[j];
+                            let itemIndex = aggregateVotes.map(obj => obj.itemName).indexOf(itemName);
+                            votes = aggregateVotes[itemIndex].votes;
+                            aggregateVotes.splice(itemIndex, 1);
+                            votes = votes + (5 - j);
+                            let newItemVote = {itemName, votes};
+                            aggregateVotes.push(newItemVote);
+                        }
+                    }
+                }
+                aggregateVotes.sort((a, b) => (a.votes > b.votes ? 1 : -1));
+                aggregateVotes.reverse();
+
+                //Get list name
+                let listName = event.target.value;
+
+                //Get publish date
+                const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                let today = new Date();
+                let dd = String(today.getDate()).padStart(2, '0');
+                let yyyy = today.getFullYear();
+                let mm = monthNames[today.getMonth()];
+                let publishDate = mm + " " + dd + ", " + yyyy; 
+
+                //Get items
+                let items = [];
+                for(let i = 0; i < 5; i++) {
+                    items[i] = aggregateVotes[i].itemName + " (Votes: " + aggregateVotes[i].votes + ")"; 
+                }
+                store.createAggregateList(listName, items, publishDate);
             }
         }
     }
 
+    // User clicks on home button
     function handleHome() {
         disableHome = false;
         store.setHomeButtonActive();
         history.push("/");
     }
 
+    // User clicks on all lists button
     function handleAllUsers() {
         disableAllUsers = false;
         store.setAllUsersButtonActive();
         history.push("/");
     }
 
+    // User clicks on user button
     function handleUser() {
         disableUser = false;
         store.setOneUserButtonActive();
         history.push("/");
     }
+
+    // User clicks on community button
     function handleCommunity() {
         disableCommunity = false;
         store.setCommunityButtonActive();
@@ -143,13 +217,17 @@ const HomeToolbar = () => {
     let disableTextField = false;
     let disableSortBy = false;
 
+    // User not logged in cannot access home menu
     if(!auth.loggedIn) {
         disableHome = true;
     }
+
+    // User cannot be a guest if logged in
     if(auth.loggedIn) {
         store.accountGuest = false;
     }
 
+    // No toolbar button functions when in workspace
     if(store.currentList) {
         disableHome = true;
         disableAllUsers = true;
@@ -159,6 +237,7 @@ const HomeToolbar = () => {
         disableSortBy = true;
     }
 
+    // Default color is black, if user clicks on button, it becomes white
     let homeButtonColor = "black";
     let allButtonColor = "black";
     let oneButtonColor = "black";

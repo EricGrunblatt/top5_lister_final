@@ -176,7 +176,7 @@ function GlobalStoreContextProvider(props) {
                     allUsersButtonActive: false,
                     oneUserButtonActive: false,
                     communityButtonActive: false,
-                    searchBar: store.searchBar,
+                    searchBar: null,
                     accountGuest: false
                 });
             }
@@ -191,7 +191,7 @@ function GlobalStoreContextProvider(props) {
                     allUsersButtonActive: true,
                     oneUserButtonActive: false,
                     communityButtonActive: false,
-                    searchBar: store.searchBar,
+                    searchBar: null,
                     accountGuest: store.accountGuest
                 });
             }
@@ -332,6 +332,27 @@ function GlobalStoreContextProvider(props) {
         }
         else {
             console.log("API FAILED TO CREATE A NEW LIST");
+        }
+    }
+
+    store.createAggregateList = async function (listName, items, publishDate) {
+        let payload = {
+            name: listName,
+            items: items,
+            ownerEmail: "Community-Aggregate",
+            userName: "Community-Aggregate",
+            likes: [],
+            dislikes: [],
+            comments: [],
+            published: publishDate,
+            views: 0
+        };
+        const response = await api.createTop5List(payload);
+        if(response.data.success) {
+            history.push("/");
+        }
+        else {
+            console.log("API FAILED TO CREATE AN AGGREGATE LIST");
         }
     }
 
