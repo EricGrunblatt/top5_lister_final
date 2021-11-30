@@ -56,27 +56,27 @@ body {
 #splash-screen {
   background-image: linear-gradient(to bottom, #2C3271, white);
   color: #D4AF3B;
-  font-size: 9vw;
+  font-size: 60pt;
   border-color: black;
   border-width: 2px;
   border-style: solid;
   border-radius: 10px;
   padding-top: 5%;
-  padding-bottom: 5%;
+  padding-bottom: 0%;
   height:70%;
   text-align: center;
   vertical-align: center;
 }
 #splash-screen-description {
-  font-size: 4vw;
+  font-size: 30pt;
   color: black;
-  padding-top: 5%;
+  padding-top: 3%;
 }
 
 #splash-screen-creator {
   color: black;
-  font-size: 3vw;
-  padding-top: 5%;
+  font-size: 20pt;
+  padding-top: 2%;
 }
 
 .top5-button,
@@ -140,6 +140,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 24pt;
+  background-color: #D4AF3B;
 }
 
 #list-selector-heading {

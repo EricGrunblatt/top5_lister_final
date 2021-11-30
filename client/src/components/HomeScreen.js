@@ -42,7 +42,7 @@ const HomeScreen = () => {
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {
-                listArray.filter(idPair => (idPair.published !== '')).map(pair => (
+                listArray.filter(idPair => (idPair.published !== '' && idPair.userName !== 'Community-Aggregate')).map(pair => (
                     <ListCard
                         key={pair._id}
                         idNamePair={pair}

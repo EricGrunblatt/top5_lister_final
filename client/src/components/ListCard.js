@@ -194,7 +194,7 @@ function ListCard(props) {
 
         // Displays views
         views = (
-            <Box sx={{ translate: -120, display: 'flex', fontSize: '13pt'}}>
+            <Box sx={{ translate: -90, display: 'flex', fontSize: '13pt'}}>
                 <Box>
                     Views:
                 </Box>

@@ -116,7 +116,7 @@ function GlobalStoreContextProvider(props) {
                     allUsersButtonActive: store.allUsersButtonActive,
                     oneUserButtonActive: store.oneUserButtonActive,
                     communityButtonActive: store.communityButtonActive,
-                    searchBar: null,
+                    searchBar: store.searchBar,
                     accountGuest: store.accountGuest
                 });
             }
@@ -347,9 +347,16 @@ function GlobalStoreContextProvider(props) {
             published: publishDate,
             views: 0
         };
-        const response = await api.createTop5List(payload);
+        let response = await api.createTop5List(payload);
         if(response.data.success) {
-            history.push("/");
+            async function getNewLists() {
+                response = await api.getTop5ListPairs();
+                if(response.data.success) {
+                    store.idNamePairs = response.data.idNamePairs;
+                    history.push("/");
+                }
+            }
+            getNewLists();
         }
         else {
             console.log("API FAILED TO CREATE AN AGGREGATE LIST");
