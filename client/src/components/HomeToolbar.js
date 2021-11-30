@@ -127,14 +127,11 @@ const HomeToolbar = () => {
             }
             // Community aggregate
             if(store.communityButtonActive) {
-                let listArray = store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.userName === "Community-Aggregate"));
-                if (listArray.some(list => list.name === event.target.value)) {
-                    return;
-                }
-                listArray = store.idNamePairs.filter((idPair => (idPair.published !== '' && idPair.name === event.target.value))); 
+                let listArray = store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.name === event.target.value)); 
                 if(listArray.length === 0) {
                     return;
                 }
+                listArray = listArray.filter(list => (list.userName !== "Community-Aggregate"));
                 let aggregateVotes = [];
                 let itemName;
                 let votes;
@@ -177,8 +174,22 @@ const HomeToolbar = () => {
                 for(let i = 0; i < 5; i++) {
                     items[i] = aggregateVotes[i].itemName + " (Votes: " + aggregateVotes[i].votes + ")"; 
                 }
-                store.createAggregateList(listName, items, publishDate);
+
+                listArray = store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.userName === "Community-Aggregate"));
+                if (listArray.some(list => list.name === event.target.value)) {
+                    let list = listArray.filter(list => list.name === event.target.value)[0];
+                    console.log(list);
+                    list.items = items;
+                    list.published = publishDate;
+                    store.updateList(list);
+                }
+                else {
+                    store.createAggregateList(listName, items, publishDate);
+                    store.loadIdNamePairs();
+                }
             }
+            store.searchBar = event.target.value;
+            history.push("/");
         }
     }
 

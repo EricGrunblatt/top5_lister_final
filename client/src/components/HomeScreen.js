@@ -70,7 +70,6 @@ const HomeScreen = () => {
             </List>;
     }
     if(store.communityButtonActive) {
-        store.loadIdNamePairs();
         let listArray = store.idNamePairs;
         if(store.searchBar !== null) {
             listArray = listArray.filter(idPair => (idPair.name === store.searchBar));
