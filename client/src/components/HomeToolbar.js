@@ -185,9 +185,9 @@ const HomeToolbar = () => {
                 }
                 else {
                     store.createAggregateList(listName, items, publishDate);
-                    store.loadIdNamePairs();
                 }
             }
+            store.loadIdNamePairs();
             store.searchBar = event.target.value;
             history.push("/");
         }
@@ -197,6 +197,7 @@ const HomeToolbar = () => {
     function handleHome() {
         disableHome = false;
         store.setHomeButtonActive();
+        store.searchBar = null;
         history.push("/");
     }
 
@@ -204,6 +205,7 @@ const HomeToolbar = () => {
     function handleAllUsers() {
         disableAllUsers = false;
         store.setAllUsersButtonActive();
+        store.searchBar = null;
         history.push("/");
     }
 
@@ -211,6 +213,7 @@ const HomeToolbar = () => {
     function handleUser() {
         disableUser = false;
         store.setOneUserButtonActive();
+        store.searchBar = null;
         history.push("/");
     }
 
@@ -218,6 +221,7 @@ const HomeToolbar = () => {
     function handleCommunity() {
         disableCommunity = false;
         store.setCommunityButtonActive();
+        store.searchBar = null;
         history.push("/");
     }
 
