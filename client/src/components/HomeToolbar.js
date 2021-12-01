@@ -89,6 +89,14 @@ const HomeToolbar = () => {
         handleSortMenuClose();
     }
 
+    if(!auth.loggedIn && store.accountGuest === false) {
+        store.homeButtonActive = false;
+        store.allUsersButtonActive = false;
+        store.oneUserButtonActive = false;
+        store.communityButtonActive = false;
+
+    }
+
     // Sort menu display
     const menu = (
         <Menu
@@ -272,6 +280,7 @@ const HomeToolbar = () => {
                 }
                 store.searchBar = event.target.value;
                 history.push("/");
+                console.log(store.idNamePairs);
             }
         }
     }

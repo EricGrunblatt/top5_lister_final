@@ -52,6 +52,9 @@ function Statusbar() {
     function handleCreateNewList() {
         store.createNewList();
     }
+    if(store.accountGuest && !auth.loggedIn) {
+        status = '';
+    }
         
 
     return (

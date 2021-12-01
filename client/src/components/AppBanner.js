@@ -27,13 +27,21 @@ export default function AppBanner() {
 
     const handleGuest = () => {
         store.setAccountGuest();
-        console.log(store.idNamePairs);
         handleMenuClose();
     };
 
     const handleLogout = () => {
         handleMenuClose();
         auth.logoutUser();
+        store.homeButtonActive = false;
+        store.allUsersButtonActive = false;
+        store.oneUserButtonActive = false;
+        store.communityButtonActive = false;
+    }
+
+    let guest = <MenuItem onClick={handleGuest}><Link to='/'>Continue as Guest</Link></MenuItem>
+    if(store.accountGuest && !auth.loggedIn) {
+        guest = '';
     }
 
     const menuId = 'primary-search-account-menu';
@@ -55,7 +63,7 @@ export default function AppBanner() {
         >
             <MenuItem onClick={handleMenuClose}><Link to='/login/'>Login</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
-            <MenuItem onClick={handleGuest}><Link to='/'>Continue as Guest</Link></MenuItem>
+            {guest}
         </Menu>
     );
     const loggedInMenu = 
@@ -106,7 +114,7 @@ export default function AppBanner() {
                         }}                        
                     >
                         <Link style={{ textDecoration: 'none', color: '#D4AF3B' }} 
-                            to='/'
+                            to='/' 
                         >
                             T<sup>5</sup>L
                         </Link>

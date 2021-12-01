@@ -63,9 +63,10 @@ body {
   border-radius: 10px;
   padding-top: 5%;
   padding-bottom: 0%;
-  height:70%;
+  height:74%;
   text-align: center;
   vertical-align: center;
+  z-index: 1;
 }
 #splash-screen-description {
   font-size: 30pt;
@@ -141,6 +142,7 @@ body {
   justify-content: center;
   font-size: 24pt;
   background-color: #D4AF3B;
+  z-index: 3;
 }
 
 #list-selector-heading {
