@@ -28,7 +28,7 @@ function Statusbar() {
                 <>
                     <Fab 
                         disabled={disableAdd}
-                        style={{ color: 'white', backgroundColor: '#B2323C' }} 
+                        style={{ color: 'white', backgroundColor: 'black' }} 
                         aria-label="add"
                         id="add-list-button"
                         onClick={handleCreateNewList}

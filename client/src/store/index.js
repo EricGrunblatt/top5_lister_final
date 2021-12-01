@@ -206,7 +206,7 @@ function GlobalStoreContextProvider(props) {
                     allUsersButtonActive: false,
                     oneUserButtonActive: true,
                     communityButtonActive: false,
-                    searchBar: store.searchBar,
+                    searchBar: null,
                     accountGuest: store.accountGuest
                 });
             }
@@ -221,7 +221,7 @@ function GlobalStoreContextProvider(props) {
                     allUsersButtonActive: false,
                     oneUserButtonActive: false,
                     communityButtonActive: true,
-                    searchBar: store.searchBar,
+                    searchBar: null,
                     accountGuest: store.accountGuest
                 });
             }
@@ -335,6 +335,7 @@ function GlobalStoreContextProvider(props) {
         }
     }
 
+    // THIS FUNCTION CREATES A COMMUNITY AGGREGATE LIST
     store.createAggregateList = async function (listName, items, publishDate) {
         let payload = {
             name: listName,
@@ -352,8 +353,11 @@ function GlobalStoreContextProvider(props) {
             async function getNewLists() {
                 response = await api.getTop5ListPairs();
                 if(response.data.success) {
-                    store.idNamePairs = response.data.idNamePairs;
-                    history.push("/");
+                    let pairsArray = response.data.idNamePairs;
+                    storeReducer({
+                        type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+                        payload: pairsArray
+                    });
                 }
             }
             getNewLists();

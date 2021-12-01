@@ -36,6 +36,13 @@ registerUser = async (req, res) => {
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
         }
+        if(userName === "Community-Aggregate") {
+            return res
+                .status(400)
+                .json({
+                    errorMessage: "Please enter a valid username."
+                });
+        }
         if (password.length < 8) {
             return res
                 .status(400)

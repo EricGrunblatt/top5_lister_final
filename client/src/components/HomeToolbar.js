@@ -21,6 +21,7 @@ const HomeToolbar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const isMenuOpen = Boolean(anchorEl);
     const { auth } = useContext(AuthContext);
+    const [name, setName] = useState("Search");
 
     //Sort Menu open
     const handleSortMenuOpen = (event) => {
@@ -113,15 +114,97 @@ const HomeToolbar = () => {
         </Menu>
     )
 
+    // User clicks on home button
+    function handleHome() {
+        disableHome = false;
+        store.setHomeButtonActive();
+        store.searchBar = null;
+        setName('Search');
+        history.push("/");
+    }
+
+    // User clicks on all lists button
+    function handleAllUsers() {
+        disableAllUsers = false;
+        store.setAllUsersButtonActive();
+        store.searchBar = null;
+        setName('Search');
+        history.push("/");
+    }
+
+    // User clicks on user button
+    function handleUser() {
+        disableUser = false;
+        store.setOneUserButtonActive();
+        store.searchBar = null;
+        setName('Search');
+        history.push("/");
+    }
+
+    // User clicks on community button
+    function handleCommunity() {
+        disableCommunity = false;
+        store.setCommunityButtonActive();
+        store.searchBar = null;
+        setName('Search');
+        history.push("/");
+    }
+
+    let disableHome = false;
+    let disableAllUsers = false;
+    let disableUser = false;
+    let disableCommunity = false;
+    let disableTextField = false;
+    let disableSortBy = false;
+
+    // User not logged in cannot access home menu
+    if(!auth.loggedIn) {
+        disableHome = true;
+    }
+
+    // User cannot be a guest if logged in
+    if(auth.loggedIn) {
+        store.accountGuest = false;
+    }
+
+    // No toolbar button functions when in workspace
+    if(store.currentList) {
+        disableHome = true;
+        disableAllUsers = true;
+        disableUser = true;
+        disableCommunity = true;
+        disableTextField = true;
+        disableSortBy = true;
+    }
+
+    // Default color is black, if user clicks on button, it becomes white
+    let homeButtonColor = "black";
+    let allButtonColor = "black";
+    let oneButtonColor = "black";
+    let communityButtonColor = "black";
+    if(store.homeButtonActive) {
+        homeButtonColor = "white";
+    }
+    if(store.allUsersButtonActive) {
+        allButtonColor = "white";
+    }
+    if(store.oneUserButtonActive) {
+        oneButtonColor = "white";
+    }
+    if(store.communityButtonActive) {
+        communityButtonColor = "white";
+    }
+
     // Handles all searches
     function handleKeyPress(event) {
         if(event.code === "Enter") {
-            if(store.allUsersButtonActive || store.oneUserButtonActive || store.communityButtonActive) {
+            if(store.allUsersButtonActive || store.oneUserButtonActive) {
                 if(event.target.value === '') {
                     store.setSearchBar(null);
                 }
                 else {
                     store.setSearchBar(event.target.value);
+                    setName(event.target.value);
                 }
                 
             }
@@ -185,89 +268,12 @@ const HomeToolbar = () => {
                 }
                 else {
                     store.createAggregateList(listName, items, publishDate);
+                    store.loadIdNamePairs();
                 }
+                store.searchBar = event.target.value;
+                history.push("/");
             }
-            store.loadIdNamePairs();
-            store.searchBar = event.target.value;
-            history.push("/");
         }
-    }
-
-    // User clicks on home button
-    function handleHome() {
-        disableHome = false;
-        store.setHomeButtonActive();
-        store.searchBar = null;
-        history.push("/");
-    }
-
-    // User clicks on all lists button
-    function handleAllUsers() {
-        disableAllUsers = false;
-        store.setAllUsersButtonActive();
-        store.searchBar = null;
-        history.push("/");
-    }
-
-    // User clicks on user button
-    function handleUser() {
-        disableUser = false;
-        store.setOneUserButtonActive();
-        store.searchBar = null;
-        history.push("/");
-    }
-
-    // User clicks on community button
-    function handleCommunity() {
-        disableCommunity = false;
-        store.setCommunityButtonActive();
-        store.searchBar = null;
-        history.push("/");
-    }
-
-    let disableHome = false;
-    let disableAllUsers = false;
-    let disableUser = false;
-    let disableCommunity = false;
-    let disableTextField = false;
-    let disableSortBy = false;
-
-    // User not logged in cannot access home menu
-    if(!auth.loggedIn) {
-        disableHome = true;
-    }
-
-    // User cannot be a guest if logged in
-    if(auth.loggedIn) {
-        store.accountGuest = false;
-    }
-
-    // No toolbar button functions when in workspace
-    if(store.currentList) {
-        disableHome = true;
-        disableAllUsers = true;
-        disableUser = true;
-        disableCommunity = true;
-        disableTextField = true;
-        disableSortBy = true;
-    }
-
-    // Default color is black, if user clicks on button, it becomes white
-    let homeButtonColor = "black";
-    let allButtonColor = "black";
-    let oneButtonColor = "black";
-    let communityButtonColor = "black";
-    if(store.homeButtonActive) {
-        homeButtonColor = "white";
-    }
-    if(store.allUsersButtonActive) {
-        allButtonColor = "white";
-    }
-    if(store.oneUserButtonActive) {
-        oneButtonColor = "white";
-    }
-    if(store.communityButtonActive) {
-        communityButtonColor = "white";
     }
 
     return (
@@ -315,7 +321,7 @@ const HomeToolbar = () => {
                     id="search-bar"
                     name="name"
                     autoComplete="Search Bar"
-                    defaultValue='Search'
+                    defaultValue={name}
                     onKeyPress={(event) => {
                         handleKeyPress(event)
                     }}
