@@ -1,0 +1,65 @@
+[{
+  "_id": {
+    "$oid": "61ac117f0cac66551805226c"
+  },
+  "firstName": "Eric",
+  "lastName": "Grunblatt",
+  "email": "ericgrunblatt@gmail.com",
+  "userName": "ericgrun",
+  "passwordHash": "$2a$10$6o/fDndpbGmZp9yUgF7VEunzCtmwRea95WI3TWwb41wutnNgdALa2",
+  "createdAt": {
+    "$date": "2021-12-05T01:10:23.083Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:10:23.083Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61ac12610cac66551805229c"
+  },
+  "firstName": "Top",
+  "lastName": "Five",
+  "email": "top5king@gmail.com",
+  "userName": "top5king652",
+  "passwordHash": "$2a$10$1LUARpoHmNA0TOK8Aju8nOYgs/6XFwVM8YJ6vaxx0Y/SPrzGWN0E6",
+  "createdAt": {
+    "$date": "2021-12-05T01:14:09.741Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:14:09.741Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61ac12e70cac6655180522a4"
+  },
+  "firstName": "William",
+  "lastName": "Bona",
+  "email": "willbon@gmail.com",
+  "userName": "willbon",
+  "passwordHash": "$2a$10$vw2/JyjQITBxorQM1mSnQOS1KpZCK.OLC8Dprw37xSimqVQ9ue7VW",
+  "createdAt": {
+    "$date": "2021-12-05T01:16:23.058Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:16:23.058Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "61ac13050cac6655180522ac"
+  },
+  "firstName": "Tyler",
+  "lastName": "Vale",
+  "email": "tylerval@gmail.com",
+  "userName": "tylerval",
+  "passwordHash": "$2a$10$DQcXAk.YmFwtd2W/1B9bn.mI038TXKZi6CbcpoQsICtDdETfEBmLS",
+  "createdAt": {
+    "$date": "2021-12-05T01:16:53.927Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:16:53.927Z"
+  },
+  "__v": 0
+}]
