@@ -21,10 +21,14 @@ const HomeScreen = () => {
 
     let listCard = "";
     if(store.homeButtonActive) {
+        let listArray = store.idNamePairs;
+        if(store.searchBar !== null) {
+            listArray = listArray.filter(idPair => idPair.name.toLowerCase().startsWith(store.searchBar.toLowerCase()));
+        }
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {
-                store.idNamePairs.filter(idPair => (idPair.ownerEmail === auth.user.email)).map(pair => (
+                listArray.filter(idPair => (idPair.ownerEmail === auth.user.email)).map(pair => (
                     <ListCard
                         key={pair._id}
                         idNamePair={pair}
@@ -37,7 +41,7 @@ const HomeScreen = () => {
     if (store.allUsersButtonActive) {
         let listArray = store.idNamePairs;
         if(store.searchBar !== null) {
-            listArray = listArray.filter(idPair => (idPair.name === store.searchBar));
+            listArray = listArray.filter(idPair => (idPair.name.toLowerCase() === store.searchBar.toLowerCase()));
         }
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
@@ -58,7 +62,7 @@ const HomeScreen = () => {
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>
             {
-                store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.userName === store.searchBar)).map(pair => (
+                store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.userName.toLowerCase() === store.searchBar.toLowerCase())).map(pair => (
                     <ListCard
                         key={pair._id}
                         idNamePair={pair}
@@ -72,7 +76,7 @@ const HomeScreen = () => {
     if(store.communityButtonActive) {
         let listArray = store.idNamePairs;
         if(store.searchBar !== null) {
-            listArray = listArray.filter(idPair => (idPair.name === store.searchBar));
+            listArray = listArray.filter(idPair => (idPair.name.toLowerCase() === store.searchBar.toLowerCase()));
         }
         listCard = 
             <List sx={{ width: '90%', left: '5%' }}>

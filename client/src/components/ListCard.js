@@ -111,9 +111,13 @@ function ListCard(props) {
     let commentWidth = '0%';
     let itemWidth = '100%';
     let disableThumbs = false;
+    let disableComment = false;
 
     if (!auth.loggedIn) {
         disableThumbs = true;
+        disableComment = true;
+        thumbUpColor = "#AAAAAA";
+        thumbDownColor = "#AAAAAA";
     }
     else {
         if(idNamePair.likes.includes(auth.user.userName)) {
@@ -213,6 +217,7 @@ function ListCard(props) {
                     style={{ borderRadius: '10px' }}
                     size="small"
                     defaultValue="Add Comment"
+                    disabled={disableComment}
                     onFocus={(event) => {
                         event.target.select()
                     }}

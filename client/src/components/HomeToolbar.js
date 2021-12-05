@@ -206,7 +206,7 @@ const HomeToolbar = () => {
     // Handles all searches
     function handleKeyPress(event) {
         if(event.code === "Enter") {
-            if(store.allUsersButtonActive || store.oneUserButtonActive) {
+            if(store.allUsersButtonActive || store.oneUserButtonActive || store.homeButtonActive) {
                 if(event.target.value === '') {
                     store.setSearchBar(null);
                 }
@@ -218,7 +218,7 @@ const HomeToolbar = () => {
             }
             // Community aggregate
             if(store.communityButtonActive) {
-                let listArray = store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.name === event.target.value)); 
+                let listArray = store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.name.toLowerCase() === event.target.value.toLowerCase())); 
                 if(listArray.length === 0) {
                     return;
                 }
@@ -228,15 +228,15 @@ const HomeToolbar = () => {
                 let votes;
                 for(let i = 0; i < listArray.length; i++) {
                     for(let j = 0; j < 5; j++) {
-                        let result = aggregateVotes.map(obj => obj.itemName).includes(listArray[i].items[j]);
+                        let result = aggregateVotes.map(obj => obj.itemName).includes(listArray[i].items[j].toLowerCase());
                         if(!result) {
-                            itemName = listArray[i].items[j];
+                            itemName = listArray[i].items[j].toLowerCase();
                             votes = 5 - j;
                             let itemVote = {itemName, votes};
                             aggregateVotes.push(itemVote);
                         }
                         else {
-                            itemName = listArray[i].items[j];
+                            itemName = listArray[i].items[j].toLowerCase();
                             let itemIndex = aggregateVotes.map(obj => obj.itemName).indexOf(itemName);
                             votes = aggregateVotes[itemIndex].votes;
                             aggregateVotes.splice(itemIndex, 1);
@@ -250,7 +250,7 @@ const HomeToolbar = () => {
                 aggregateVotes.reverse();
 
                 //Get list name
-                let listName = event.target.value;
+                let listName = event.target.value.toLowerCase();
 
                 //Get publish date
                 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -267,8 +267,8 @@ const HomeToolbar = () => {
                 }
 
                 listArray = store.idNamePairs.filter(idPair => (idPair.published !== '' && idPair.userName === "Community-Aggregate"));
-                if (listArray.some(list => list.name === event.target.value)) {
-                    let list = listArray.filter(list => list.name === event.target.value)[0];
+                if (listArray.some(list => list.name.toLowerCase() === event.target.value.toLowerCase())) {
+                    let list = listArray.filter(list => list.name.toLowerCase() === event.target.value.toLowerCase())[0];
                     console.log(list);
                     list.items = items;
                     list.published = publishDate;

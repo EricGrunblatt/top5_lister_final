@@ -36,7 +36,7 @@ registerUser = async (req, res) => {
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
         }
-        if(userName === "Community-Aggregate") {
+        if(userName === "Community-Aggregate" || userName.toLowerCase() === "guest") {
             return res
                 .status(400)
                 .json({
@@ -109,20 +109,20 @@ registerUser = async (req, res) => {
 
 loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        if(!email || !password) {
+        const { userName, password } = req.body;
+        if(!userName || !password) {
             return res
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
         }
 
-        const existingUser = await User.findOne({ email: email });
+        const existingUser = await User.findOne({ userName: userName });
         if (!existingUser) {
             return res
                 .status(400)
                 .json({
                     success: false,
-                    errorMessage: "There is no account associated with this email address."
+                    errorMessage: "There is no account associated with this username."
                 })
         }
 

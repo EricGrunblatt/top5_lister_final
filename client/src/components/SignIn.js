@@ -38,7 +38,7 @@ export default function SignIn() {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
         auth.loginUser({
-          email: formData.get('email'),
+          userName: formData.get('userName'),
           password: formData.get('password')
         }, store);
     };
@@ -66,10 +66,10 @@ export default function SignIn() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="userName"
+                label="Username"
+                name="userName"
+                autoComplete="userName"
                 autoFocus
               />
               <TextField
