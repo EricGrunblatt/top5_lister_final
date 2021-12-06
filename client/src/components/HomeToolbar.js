@@ -35,11 +35,26 @@ const HomeToolbar = () => {
 
     // Sort by date (newest)
     function handleSortNewest() {
-        let listArray = store.idNamePairs.filter(idPair => (idPair.published !== ''));
+        let listArray = store.idNamePairs;
         listArray.sort((a, b) => {
-            let dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
-            let dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
-            console.log(dateA);
+            let dateA;
+            let dateB;
+            if (a.published === '' && b.published === '') {
+                dateA = 0;
+                dateB = 0;
+            }
+            else if(a.published === '') {
+                dateA = 0;
+                dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
+            }
+            else if (b.published === '') {
+                dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
+                dateB = 0;
+            }
+            else {
+                dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
+                dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
+            } 
             return dateA-dateB});
         listArray.reverse();
         store.idNamePairs = listArray;
@@ -49,10 +64,26 @@ const HomeToolbar = () => {
 
     // Sort by date (oldest)
     function handleSortOldest() {
-        let listArray = store.idNamePairs.filter(idPair => (idPair.published !== ''));
+        let listArray = store.idNamePairs;
         listArray.sort((a, b) => {
-            let dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
-            let dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
+            let dateA;
+            let dateB;
+            if (a.published === '' && b.published === '') {
+                dateA = 0;
+                dateB = 0;
+            }
+            else if(a.published === '') {
+                dateA = 0;
+                dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
+            }
+            else if (b.published === '') {
+                dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
+                dateB = 0;
+            }
+            else {
+                dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
+                dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
+            } 
             return dateA-dateB});
         store.idNamePairs = listArray;
         history.push("/");
