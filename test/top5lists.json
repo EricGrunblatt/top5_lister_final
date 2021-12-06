@@ -1,0 +1,463 @@
+[{
+  "_id": {
+    "$oid": "61ac11830cac665518052272"
+  },
+  "items": [
+    "This",
+    "Is",
+    "A",
+    "Random",
+    "List"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Random List",
+  "ownerEmail": "ericgrunblatt@gmail.com",
+  "userName": "ericgrun",
+  "comments": [],
+  "published": "",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:10:27.524Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:10:39.170Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac11900cac665518052278"
+  },
+  "items": [
+    "Comfortably Numb",
+    "Wish You Were Here",
+    "Shine On You Crazy Diamond",
+    "Time",
+    "Pigs"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Pink Floyd Songs",
+  "ownerEmail": "ericgrunblatt@gmail.com",
+  "userName": "ericgrun",
+  "comments": [],
+  "published": "May 18, 2001",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:10:40.682Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:11:12.596Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac11b10cac665518052286"
+  },
+  "items": [
+    "Mets",
+    "Yankees",
+    "Braves",
+    "Blue Jays",
+    "Cardinals"
+  ],
+  "likes": [],
+  "dislikes": [
+    "top5king652"
+  ],
+  "name": "Baseball Teams",
+  "ownerEmail": "ericgrunblatt@gmail.com",
+  "userName": "ericgrun",
+  "comments": [],
+  "published": "Dec 23, 2019",
+  "views": 3,
+  "createdAt": {
+    "$date": "2021-12-05T01:11:13.913Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:27:46.457Z"
+  },
+  "__v": 2
+},{
+  "_id": {
+    "$oid": "61ac11de0cac665518052294"
+  },
+  "items": [
+    "Pig",
+    "Cow",
+    "Chicken",
+    "Horse",
+    "Cheetah"
+  ],
+  "likes": [
+    "top5king652"
+  ],
+  "dislikes": [],
+  "name": "Animals",
+  "ownerEmail": "ericgrunblatt@gmail.com",
+  "userName": "ericgrun",
+  "comments": [],
+  "published": "Apr 30, 2015",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:11:58.004Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:27:36.854Z"
+  },
+  "__v": 2
+},{
+  "_id": {
+    "$oid": "61ac130c0cac6655180522b2"
+  },
+  "items": [
+    "Another Brick in the Wall",
+    "Time",
+    "Shine on You Crazy Diamond",
+    "Comfortably Numb",
+    "Pigs"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Pink Floyd Songs",
+  "ownerEmail": "tylerval@gmail.com",
+  "userName": "tylerval",
+  "comments": [],
+  "published": "Feb 14, 2008",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:17:00.432Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:17:51.493Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac13400cac6655180522b8"
+  },
+  "items": [
+    "Diamondbacks",
+    "Giants",
+    "Mets",
+    "Yankees",
+    "Dodgers"
+  ],
+  "likes": [],
+  "dislikes": [
+    "top5king652"
+  ],
+  "name": "Baseball Teams",
+  "ownerEmail": "tylerval@gmail.com",
+  "userName": "tylerval",
+  "comments": [],
+  "published": "Mar 22, 2004",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:17:52.746Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:27:40.067Z"
+  },
+  "__v": 2
+},{
+  "_id": {
+    "$oid": "61ac136c0cac6655180522c6"
+  },
+  "items": [
+    "Chick Fil a",
+    "Chipotle",
+    "Shake Shack",
+    "Moes",
+    "McDonalds"
+  ],
+  "likes": [
+    "top5king652"
+  ],
+  "dislikes": [],
+  "name": "Fast Food Places",
+  "ownerEmail": "tylerval@gmail.com",
+  "userName": "tylerval",
+  "comments": [],
+  "published": "Oct 06, 2011",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:18:36.701Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:27:39.326Z"
+  },
+  "__v": 2
+},{
+  "_id": {
+    "$oid": "61ac13a30cac6655180522cc"
+  },
+  "items": [
+    "Random",
+    "List",
+    "This",
+    "A",
+    "Is"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Random List",
+  "ownerEmail": "tylerval@gmail.com",
+  "userName": "tylerval",
+  "comments": [],
+  "published": "",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:19:31.683Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:19:45.532Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac13c10cac6655180522d7"
+  },
+  "items": [
+    "Comfortably Numb",
+    "Another Brick in the Wall",
+    "Welcome to the Machine",
+    "Hey You",
+    "Time"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Pink Floyd Songs",
+  "ownerEmail": "willbon@gmail.com",
+  "userName": "willbon",
+  "comments": [],
+  "published": "Nov 24, 2018",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:20:01.253Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:21:11.503Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac14090cac6655180522dd"
+  },
+  "items": [
+    "Yankees",
+    "Mets",
+    "Dodgers",
+    "Giants",
+    "Braves"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Baseball Teams",
+  "ownerEmail": "willbon@gmail.com",
+  "userName": "willbon",
+  "comments": [],
+  "published": "Dec 04, 2021",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:21:13.062Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:21:50.278Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac14350cac6655180522e3"
+  },
+  "items": [
+    "Chick Fil a",
+    "McDonalds",
+    "Wendys",
+    "Chipotle",
+    "KFC"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Fast Food Places",
+  "ownerEmail": "willbon@gmail.com",
+  "userName": "willbon",
+  "comments": [],
+  "published": "Aug 19, 2012",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:21:57.679Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:22:44.980Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac14660cac6655180522e9"
+  },
+  "items": [
+    "Steak",
+    "Burgers",
+    "Pizza",
+    "Fries",
+    "Sushi"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Food",
+  "ownerEmail": "willbon@gmail.com",
+  "userName": "willbon",
+  "comments": [],
+  "published": "",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:22:46.385Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:23:13.037Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac14920cac6655180522f4"
+  },
+  "items": [
+    "Californication",
+    "Wet Sand",
+    "Otherside",
+    "Aeroplane",
+    "Cant Stop"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Red Hot Chili Peppers",
+  "ownerEmail": "top5king@gmail.com",
+  "userName": "top5king652",
+  "comments": [],
+  "published": "Jun 02, 2007",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:23:30.728Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:24:42.236Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac14dc0cac6655180522fa"
+  },
+  "items": [
+    "Arbys",
+    "Taco Bell",
+    "Buffalo Wild Wings",
+    "Popeyes",
+    "Sonic"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Fast Food Places",
+  "ownerEmail": "top5king@gmail.com",
+  "userName": "top5king652",
+  "comments": [],
+  "published": "Sep 12, 2016",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:24:44.542Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:25:26.321Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac15070cac665518052300"
+  },
+  "items": [
+    "Ribs",
+    "Roast Beef",
+    "Ice Cream",
+    "Spinach",
+    "Creamed Corn"
+  ],
+  "likes": [],
+  "dislikes": [],
+  "name": "Food",
+  "ownerEmail": "top5king@gmail.com",
+  "userName": "top5king652",
+  "comments": [],
+  "published": "",
+  "views": 0,
+  "createdAt": {
+    "$date": "2021-12-05T01:25:27.992Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:26:32.340Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ac154f0cac665518052308"
+  },
+  "items": [
+    "chick fil a (Votes: 10)",
+    "chipotle (Votes: 6)",
+    "arbys (Votes: 5)",
+    "mcdonalds (Votes: 5)",
+    "taco bell (Votes: 4)"
+  ],
+  "likes": [
+    "top5king652"
+  ],
+  "dislikes": [],
+  "name": "fast food places",
+  "ownerEmail": "Community-Aggregate",
+  "userName": "Community-Aggregate",
+  "comments": [],
+  "published": "Dec 04, 2021",
+  "views": 1,
+  "createdAt": {
+    "$date": "2021-12-05T01:26:39.526Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-05T01:27:32.307Z"
+  },
+  "__v": 1
+},{
+  "_id": {
+    "$oid": "61ad80830248d261dcdaad03"
+  },
+  "items": [
+    "mets (Votes: 12)",
+    "yankees (Votes: 11)",
+    "giants (Votes: 6)",
+    "diamondbacks (Votes: 5)",
+    "braves (Votes: 4)"
+  ],
+  "likes": [],
+  "dislikes": [
+    "ericgrun"
+  ],
+  "name": "baseball teams",
+  "ownerEmail": "Community-Aggregate",
+  "userName": "Community-Aggregate",
+  "comments": [
+    {
+      "_id": {
+        "$oid": "61ad80920248d261dcdaad0d"
+      },
+      "userName": "ericgrun",
+      "text": "why are the diamondbacks on here?"
+    }
+  ],
+  "published": "Dec 05, 2021",
+  "views": 1,
+  "createdAt": {
+    "$date": "2021-12-06T03:16:19.149Z"
+  },
+  "updatedAt": {
+    "$date": "2021-12-06T03:16:34.794Z"
+  },
+  "__v": 2
+}]
