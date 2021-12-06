@@ -35,10 +35,11 @@ const HomeToolbar = () => {
 
     // Sort by date (newest)
     function handleSortNewest() {
-        let listArray = store.idNamePairs;
+        let listArray = store.idNamePairs.filter(idPair => (idPair.published !== ''));
         listArray.sort((a, b) => {
             let dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
             let dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
+            console.log(dateA);
             return dateA-dateB});
         listArray.reverse();
         store.idNamePairs = listArray;
@@ -48,7 +49,7 @@ const HomeToolbar = () => {
 
     // Sort by date (oldest)
     function handleSortOldest() {
-        let listArray = store.idNamePairs;
+        let listArray = store.idNamePairs.filter(idPair => (idPair.published !== ''));
         listArray.sort((a, b) => {
             let dateA = Date.parse(a.published.substring(4,6) + ' ' + a.published.substring(0,3) + ' ' + a.published.substring(8,12));
             let dateB = Date.parse(b.published.substring(4,6) + ' ' + b.published.substring(0,3) + ' ' + b.published.substring(8,12));
